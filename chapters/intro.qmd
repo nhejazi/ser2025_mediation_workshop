@@ -24,9 +24,9 @@ library(here)
 
     -   To what extent does the effect of having a disability or chronic pain condition at the time of Medicaid enrollment on subsequent OUD risk operate through pain management strategies? Considered as a bundle? And one-by-one? [@rudolph2025mediation]
 
-    ![](images/topdag-01.pdf)
+![](../img/topdag.pdf){width="80%"}
 
-![](images/bottomdag.pdf)
+![](../img/bottomdag.pdf){width="80%"}
 
 ## What is causal mediation analysis?
 
@@ -236,11 +236,11 @@ The above graphs can be interpreted as a *non-parametric structural equation mod
 -   Recall that we are interested in assessing how the pathways would behave under circumstances different from the observed circumstances
 -   We operationalize this idea using *counterfactual* random variables
 -   Counterfactuals are hypothetical random variables that would have been observed in an alternative world where something had happened, possibly contrary to fact <!--we would be able to perform interventions on the
-      random variables of interest-->
+                  random variables of interest-->
 
 ### We will use the following counterfactual variables:
 
--   $Y_a$ is a counterfactual variable in a hypothetical world where $\P(A=a)=1$ with probability one for some value $a$
+-   $Y_a$ is a counterfactual variable in a hypothetical world where $\P(A=a)=1$ for some value $a$
 -   $Y_{a,m}$ is the counterfactual outcome in a world where $\P(A=a,M=m)=1$
 -   $M_a$ is the counterfactual variable representing the mediator in a world where $\P(A=a)=1$.
 

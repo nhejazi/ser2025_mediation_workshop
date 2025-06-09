@@ -11,7 +11,7 @@ library(here)
 -   Controlled direct effects
 -   Natural direct and indirect effects
 -   Randomized interventional direct and indirect effects
--   Path-specific effects using _recanting twins_
+-   Path-specific effects using *recanting twins*
 
 ```{tikz}
 #| fig-cap: Directed acyclic graph under *no intermediate confounders* of the mediator-outcome relation affected by treatment
@@ -327,7 +327,7 @@ shorten >=2pt,}
 \end{tikzpicture}
 ```
 
-![](images/bottomdag-01.pdf)
+![](/../img/bottomdag.pdf)
 
 ### Unidentifiability of the NDE and NIE in this setting
 
@@ -582,7 +582,7 @@ Under these assumptions, the randomized interventional direct and indirect effec
 
 ### But, there is an important limitation of randomized interventional effects
 
-@miles2022causal recently uncovered an important limitation of these effects, which can be described as follows. The sharp mediational hull hypothesis can be defined as
+@miles2022causal recently uncovered an important limitation of these effects, which can be described as follows. The sharp mediational null hypothesis can be defined as
 
 $$
   H_0:Y(a, M(a')) = Y(a, M(a^\star));\text{ for all }a, a', a^\star \ .
@@ -611,7 +611,7 @@ was observed and conditioned upon in all the above quantities.
 
 More details in the original paper.
 
-## Path-specific effects using _recanting twins_
+## Path-specific effects using *recanting twins*
 
 The DAG we are working under contains four paths of interest:
 
@@ -622,9 +622,7 @@ P_3&: A \rightarrow Z \rightarrow M \rightarrow Y\\
 P_4&: A \rightarrow M \rightarrow Y,
 \end{align*}
 
-Natural path-specific effects could be defined using the
-following nested counterfactuals:
-\begin{align*}
+Natural path-specific effects could be defined using the following nested counterfactuals: \begin{align*}
   Y_{S_0}&=Y(1, Z(1), M(1, Z(1))),\\
   Y_{S_1}&=Y(0, Z(1), M(1, Z(1))),\\
   Y_{S_2}&=Y(0, Z(0), M(1, Z(1))),\\
@@ -632,44 +630,34 @@ following nested counterfactuals:
   Y_{S_4}&=Y(0, Z(0), M(0, Z(0))),
 \end{align*}
 
-As before, the problem is that the distribution of $Y_{S_2}$ is not
-identifiable due to the so-called recanting witness $Z$. This means
-that one can contrast $Y_{S_1}$ with $Y_{S_3}$ but not with
-$Y_{S_2}$. Thus, the effects operating through $P_2$ and $P_3$ cannot
-be disentangled.
+As before, the problem is that the distribution of $Y_{S_2}$ is not identifiable due to the so-called recanting witness $Z$. This means that one can contrast $Y_{S_1}$ with $Y_{S_3}$ but not with $Y_{S_2}$. Thus, the effects operating through $P_2$ and $P_3$ cannot be disentangled.
 
-$Z$ is called a recanting witness because "it tells one story" Z(1)
-for purposes of one path, and another story $Z(0) for purposes of the
-other.
+$Z$ is called a recanting witness because "it tells one story" $Z(1)$ for purposes of one path, and another story $Z(0)$ for purposes of the other.
 
-But what if we replaced recanting witnesses by randomized versions of
-them that carry some of the same information? Specifically, if $T(a)$
-is a random draw from the distribution of $Z(a)$ conditional on $W$, we can:
+But what if we replaced recanting witnesses by randomized versions of them that carry some of the same information? Specifically, if $T(a)$ is a random draw from the distribution of $Z(a)$ conditional on $W$, we can:
 
-- Measure $P_2$ by contrasting
-$$Y(0, Z(1), M(1, {\color{ForestGreen}{T(1)}})) \text{ vs } Y(0, Z(0), M(1, \color{ForestGreen}{T(1)}))$$
+-   Measure $P_2$ by contrasting $$Y(0, Z(1), M(1, {\color{ForestGreen}{T(1)}})) \text{ vs } Y(0, Z(0), M(1, \color{ForestGreen}{T(1)}))$$
 
-- Measure $P_3$ by contyrasting
-$$Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(1))) \text{ vs } Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(0)))$$
+-   Measure $P_3$ by contrasting $$Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(1))) \text{ vs } Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(0)))$$
 
-- Measure the other paths through their identified natural effects
+-   Measure the other paths through their identified natural effects
 
 This is what we proposed in a recent paper (@vo2024recanting).
 
-The variables $T(a)$ are the _recanting twins_ of $Z(1-a)$. Identification requires some of the standard assumptions, namely:
+The variables $T(a)$ are the *recanting twins* of $Z(1-a)$. Identification requires some of the standard assumptions, namely:
 
--  $U_A\indep (U_Y, U_M, U_Z)\mid W$,
--  $U_Z\indep (U_Y, U_M)\mid (A,W)$, and
--  $U_M\indep U_Y\mid (Z,A,W)$.
+-   $U_A\indep (U_Y, U_M, U_Z)\mid W$,
+-   $U_Z\indep (U_Y, U_M)\mid (A,W)$, and
+-   $U_M\indep U_Y\mid (Z,A,W)$.
 
 Under these assumptions, we can identify a decomposition of the ATE as follows:
 
 $$\text{ATE} = \psi_{P_1} + \psi_{P_2} + \psi_{P_3} + \psi_{P_4} +
   \psi_{\text{IC}},$$
-  
+
 where
 
-- $\psi_{P_i}$ measures the effect through path $P_i$
-- $\psi_{\text{IC}}$ is a remainder that is equal to zero if there is no intermediate confounding, in which case $\psi_{P_i}$ is equal to the (identified) natural path-specific effect. 
+-   $\psi_{P_i}$ measures the effect through path $P_i$
+-   $\psi_{\text{IC}}$ is a remainder that is equal to zero if there is no intermediate confounding, in which case $\psi_{P_i}$ is equal to the (identified) natural path-specific effect.
 
 More details on the definition, interpretation, and identification of these effects in the paper!
