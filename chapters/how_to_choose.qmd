@@ -10,7 +10,7 @@ library(here)
 
 ## 1. Extent to which the risk of OUD conferred by chronic pain operates through pain management treatments
 
-![](/..img/topdag.pdf){width="80%"}
+![](../img/topdag.pdf)
 
 This application was explored in detail by @rudolph2025mediation
 
@@ -34,11 +34,11 @@ $\rightarrow$ So, could estimate natural (in)direct effects
     -   Direct effect: $\E(Y_{1,M_0} - Y_{0,M_0})$
     -   Indirect effect: $\E(Y_{1,M_1} - Y_{1,M_0})$
 
-![](/../img/all_mediators_icd.pdf){width="80%"}
+![](../img/all_mediators_icd.pdf)
 
 ## 2. Extent to which the risk of OUD conferred by chronic pain operates through individual pain management treatments
 
-![](/../img/bottomdag.pdf){width="80%"}
+![](../img/bottomdag.pdf)
 
 This application was explored in detail by @rudolph2025mediation
 
@@ -73,20 +73,20 @@ $\rightarrow$ Can also estimate path-specific effects (using recanting twins)
 
 -   But fully decompose the average treatment effect (ATE) - And satisfy the sharp mediational null hypothesis
 
-    2.  **What if the positivity assumption** $\P(A=a\mid W)>0$ violated?
+2.  **What if the positivity assumption** $\P(A=a\mid W)>0$ violated?
 
     $\rightarrow$ Can't identify or estimate any of the above effects
 
     -   But we can estimate the effect of some stochastic interventions, e.g., IPSIs
     -   Trade-off between feasibility and interpretation
 
-    3.  **What if the exposure variable is continuous?**
+3.  **What if the exposure variable is continuous?**
 
     $\rightarrow$ All the above effects are defined for binary exposures
 
     -   But we can estimate the effect of some stochastic interventions and general interventions on continuous exposures, like shift interventions.
 
-    4.  **What if the exposure is actually time-varying? What if the mediators and/or intermediate confounders are actually time-varying?**
+4.  **What if the exposure is actually time-varying? What if the mediators and/or intermediate confounders are actually time-varying?**
         -   this is hard! but we have two estimators for this:
             -   <https://github.com/nt-williams/lcmmtp>
             -   <https://github.com/nt-williams/lcm>
