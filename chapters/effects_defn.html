@@ -1907,7 +1907,7 @@ A=0, M, W)}\color{red}{\mid A=0,W\}}\)</span></p>
 </div>
 </div>
 </div>
-<p><embed src="images/bottomdag-01.pdf" class="img-fluid"></p>
+<p><embed src="../../img/bottomdag.pdf" class="img-fluid"></p>
 </section><section id="unidentifiability-of-the-nde-and-nie-in-this-setting" class="level3 page-columns page-full" data-number="2.2.5"><h3 data-number="2.2.5" class="anchored" data-anchor-id="unidentifiability-of-the-nde-and-nie-in-this-setting">
 <span class="header-section-number">2.2.5</span> Unidentifiability of the NDE and NIE in this setting</h3>
 <ul>
@@ -2143,7 +2143,7 @@ Tchetgen Tchetgen, Eric J, and Tyler J VanderWeele. 2014. <span>“On Identifica
 <li>Okay with the assumptions!</li>
 </ul></section><section id="but-there-is-an-important-limitation-of-randomized-interventional-effects" class="level3 page-columns page-full" data-number="2.3.4"><h3 data-number="2.3.4" class="anchored" data-anchor-id="but-there-is-an-important-limitation-of-randomized-interventional-effects">
 <span class="header-section-number">2.3.4</span> But, there is an important limitation of randomized interventional effects</h3>
-<p><span class="citation" data-cites="miles2022causal">Miles (<a href="../references.html#ref-miles2022causal" role="doc-biblioref">2022</a>)</span> recently uncovered an important limitation of these effects, which can be described as follows. The sharp mediational hull hypothesis can be defined as</p>
+<p><span class="citation" data-cites="miles2022causal">Miles (<a href="../references.html#ref-miles2022causal" role="doc-biblioref">2022</a>)</span> recently uncovered an important limitation of these effects, which can be described as follows. The sharp mediational null hypothesis can be defined as</p>
 <div class="no-row-height column-margin column-container"><div id="ref-miles2022causal" class="csl-entry" role="listitem">
 Miles, Caleb H. 2022. <span>“On the Causal Interpretation of Randomized Interventional Indirect Effects.”</span> <em>arXiv Preprint arXiv:2203.00245</em>. <a href="https://arxiv.org/abs/2203.00245">https://arxiv.org/abs/2203.00245</a>.
 </div></div><p><span class="math display">\[
@@ -2184,11 +2184,11 @@ P_4&amp;: A \rightarrow M \rightarrow Y,
   Y_{S_4}&amp;=Y(0, Z(0), M(0, Z(0))),
 \end{align*}\]</span></p>
 <p>As before, the problem is that the distribution of <span class="math inline">\(Y_{S_2}\)</span> is not identifiable due to the so-called recanting witness <span class="math inline">\(Z\)</span>. This means that one can contrast <span class="math inline">\(Y_{S_1}\)</span> with <span class="math inline">\(Y_{S_3}\)</span> but not with <span class="math inline">\(Y_{S_2}\)</span>. Thus, the effects operating through <span class="math inline">\(P_2\)</span> and <span class="math inline">\(P_3\)</span> cannot be disentangled.</p>
-<p><span class="math inline">\(Z\)</span> is called a recanting witness because “it tells one story” Z(1) for purposes of one path, and another story $Z(0) for purposes of the other.</p>
+<p><span class="math inline">\(Z\)</span> is called a recanting witness because “it tells one story” <span class="math inline">\(Z(1)\)</span> for purposes of one path, and another story <span class="math inline">\(Z(0)\)</span> for purposes of the other.</p>
 <p>But what if we replaced recanting witnesses by randomized versions of them that carry some of the same information? Specifically, if <span class="math inline">\(T(a)\)</span> is a random draw from the distribution of <span class="math inline">\(Z(a)\)</span> conditional on <span class="math inline">\(W\)</span>, we can:</p>
 <ul>
 <li><p>Measure <span class="math inline">\(P_2\)</span> by contrasting <span class="math display">\[Y(0, Z(1), M(1, {\color{ForestGreen}{T(1)}})) \text{ vs } Y(0, Z(0), M(1, \color{ForestGreen}{T(1)}))\]</span></p></li>
-<li><p>Measure <span class="math inline">\(P_3\)</span> by contyrasting <span class="math display">\[Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(1))) \text{ vs } Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(0)))\]</span></p></li>
+<li><p>Measure <span class="math inline">\(P_3\)</span> by contrasting <span class="math display">\[Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(1))) \text{ vs } Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(0)))\]</span></p></li>
 <li><p>Measure the other paths through their identified natural effects</p></li>
 </ul>
 <p>This is what we proposed in a recent paper (<span class="citation" data-cites="vo2024recanting">Vo et al. (<a href="../references.html#ref-vo2024recanting" role="doc-biblioref">2024</a>)</span>).</p>
@@ -2693,7 +2693,7 @@ Vo, Tat-Thang, Nicholas Williams, Richard Liu, Kara E Rudolph, and Ivan Dıaz. 2
 <span id="cb4-13"><a href="#cb4-13"></a><span class="ss">-   </span>Controlled direct effects</span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="ss">-   </span>Natural direct and indirect effects</span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="ss">-   </span>Randomized interventional direct and indirect effects</span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="ss">-   </span>Path-specific effects using _recanting twins_</span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="ss">-   </span>Path-specific effects using *recanting twins*</span>
 <span id="cb4-17"><a href="#cb4-17"></a></span>
 <span id="cb4-20"><a href="#cb4-20"></a><span class="in">```{tikz}</span></span>
 <span id="cb4-21"><a href="#cb4-21"></a><span class="in">#| fig-cap: Directed acyclic graph under *no intermediate confounders* of the mediator-outcome relation affected by treatment</span></span>
@@ -3009,7 +3009,7 @@ Vo, Tat-Thang, Nicholas Williams, Richard Liu, Kara E Rudolph, and Ivan Dıaz. 2
 <span id="cb4-333"><a href="#cb4-333"></a><span class="in">\end{tikzpicture}</span></span>
 <span id="cb4-334"><a href="#cb4-334"></a><span class="in">```</span></span>
 <span id="cb4-335"><a href="#cb4-335"></a></span>
-<span id="cb4-336"><a href="#cb4-336"></a><span class="al">![](images/bottomdag-01.pdf)</span></span>
+<span id="cb4-336"><a href="#cb4-336"></a><span class="al">![](/../img/bottomdag.pdf)</span></span>
 <span id="cb4-337"><a href="#cb4-337"></a></span>
 <span id="cb4-338"><a href="#cb4-338"></a><span class="fu">### Unidentifiability of the NDE and NIE in this setting</span></span>
 <span id="cb4-339"><a href="#cb4-339"></a></span>
@@ -3264,7 +3264,7 @@ Vo, Tat-Thang, Nicholas Williams, Richard Liu, Kara E Rudolph, and Ivan Dıaz. 2
 <span id="cb4-590"><a href="#cb4-590"></a></span>
 <span id="cb4-591"><a href="#cb4-591"></a><span class="fu">### But, there is an important limitation of randomized interventional effects</span></span>
 <span id="cb4-592"><a href="#cb4-592"></a></span>
-<span id="cb4-593"><a href="#cb4-593"></a>@miles2022causal recently uncovered an important limitation of these effects, which can be described as follows. The sharp mediational hull hypothesis can be defined as</span>
+<span id="cb4-593"><a href="#cb4-593"></a>@miles2022causal recently uncovered an important limitation of these effects, which can be described as follows. The sharp mediational null hypothesis can be defined as</span>
 <span id="cb4-594"><a href="#cb4-594"></a></span>
 <span id="cb4-595"><a href="#cb4-595"></a>$$</span>
 <span id="cb4-596"><a href="#cb4-596"></a>  H_0:Y(a, M(a')) = Y(a, M(a^\star));\text{ for all }a, a', a^\star \ .</span>
@@ -3293,7 +3293,7 @@ Vo, Tat-Thang, Nicholas Williams, Richard Liu, Kara E Rudolph, and Ivan Dıaz. 2
 <span id="cb4-619"><a href="#cb4-619"></a></span>
 <span id="cb4-620"><a href="#cb4-620"></a>More details in the original paper.</span>
 <span id="cb4-621"><a href="#cb4-621"></a></span>
-<span id="cb4-622"><a href="#cb4-622"></a><span class="fu">## Path-specific effects using _recanting twins_</span></span>
+<span id="cb4-622"><a href="#cb4-622"></a><span class="fu">## Path-specific effects using *recanting twins*</span></span>
 <span id="cb4-623"><a href="#cb4-623"></a></span>
 <span id="cb4-624"><a href="#cb4-624"></a>The DAG we are working under contains four paths of interest:</span>
 <span id="cb4-625"><a href="#cb4-625"></a></span>
@@ -3304,57 +3304,45 @@ Vo, Tat-Thang, Nicholas Williams, Richard Liu, Kara E Rudolph, and Ivan Dıaz. 2
 <span id="cb4-630"><a href="#cb4-630"></a>P_4&amp;: A \rightarrow M \rightarrow Y,</span>
 <span id="cb4-631"><a href="#cb4-631"></a>\end{align*}</span>
 <span id="cb4-632"><a href="#cb4-632"></a></span>
-<span id="cb4-633"><a href="#cb4-633"></a>Natural path-specific effects could be defined using the</span>
-<span id="cb4-634"><a href="#cb4-634"></a>following nested counterfactuals:</span>
-<span id="cb4-635"><a href="#cb4-635"></a>\begin{align*}</span>
-<span id="cb4-636"><a href="#cb4-636"></a>  Y_{S_0}&amp;=Y(1, Z(1), M(1, Z(1))),<span class="sc">\\</span></span>
-<span id="cb4-637"><a href="#cb4-637"></a>  Y_{S_1}&amp;=Y(0, Z(1), M(1, Z(1))),<span class="sc">\\</span></span>
-<span id="cb4-638"><a href="#cb4-638"></a>  Y_{S_2}&amp;=Y(0, Z(0), M(1, Z(1))),<span class="sc">\\</span></span>
-<span id="cb4-639"><a href="#cb4-639"></a>  Y_{S_3}&amp;=Y(0, Z(0), M(1, Z(0))),<span class="sc">\\</span></span>
-<span id="cb4-640"><a href="#cb4-640"></a>  Y_{S_4}&amp;=Y(0, Z(0), M(0, Z(0))),</span>
-<span id="cb4-641"><a href="#cb4-641"></a>\end{align*}</span>
+<span id="cb4-633"><a href="#cb4-633"></a>Natural path-specific effects could be defined using the following nested counterfactuals: \begin{align*}</span>
+<span id="cb4-634"><a href="#cb4-634"></a>  Y_{S_0}&amp;=Y(1, Z(1), M(1, Z(1))),<span class="sc">\\</span></span>
+<span id="cb4-635"><a href="#cb4-635"></a>  Y_{S_1}&amp;=Y(0, Z(1), M(1, Z(1))),<span class="sc">\\</span></span>
+<span id="cb4-636"><a href="#cb4-636"></a>  Y_{S_2}&amp;=Y(0, Z(0), M(1, Z(1))),<span class="sc">\\</span></span>
+<span id="cb4-637"><a href="#cb4-637"></a>  Y_{S_3}&amp;=Y(0, Z(0), M(1, Z(0))),<span class="sc">\\</span></span>
+<span id="cb4-638"><a href="#cb4-638"></a>  Y_{S_4}&amp;=Y(0, Z(0), M(0, Z(0))),</span>
+<span id="cb4-639"><a href="#cb4-639"></a>\end{align*}</span>
+<span id="cb4-640"><a href="#cb4-640"></a></span>
+<span id="cb4-641"><a href="#cb4-641"></a>As before, the problem is that the distribution of $Y_{S_2}$ is not identifiable due to the so-called recanting witness $Z$. This means that one can contrast $Y_{S_1}$ with $Y_{S_3}$ but not with $Y_{S_2}$. Thus, the effects operating through $P_2$ and $P_3$ cannot be disentangled.</span>
 <span id="cb4-642"><a href="#cb4-642"></a></span>
-<span id="cb4-643"><a href="#cb4-643"></a>As before, the problem is that the distribution of $Y_{S_2}$ is not</span>
-<span id="cb4-644"><a href="#cb4-644"></a>identifiable due to the so-called recanting witness $Z$. This means</span>
-<span id="cb4-645"><a href="#cb4-645"></a>that one can contrast $Y_{S_1}$ with $Y_{S_3}$ but not with</span>
-<span id="cb4-646"><a href="#cb4-646"></a>$Y_{S_2}$. Thus, the effects operating through $P_2$ and $P_3$ cannot</span>
-<span id="cb4-647"><a href="#cb4-647"></a>be disentangled.</span>
+<span id="cb4-643"><a href="#cb4-643"></a>$Z$ is called a recanting witness because "it tells one story" $Z(1)$ for purposes of one path, and another story $Z(0)$ for purposes of the other.</span>
+<span id="cb4-644"><a href="#cb4-644"></a></span>
+<span id="cb4-645"><a href="#cb4-645"></a>But what if we replaced recanting witnesses by randomized versions of them that carry some of the same information? Specifically, if $T(a)$ is a random draw from the distribution of $Z(a)$ conditional on $W$, we can:</span>
+<span id="cb4-646"><a href="#cb4-646"></a></span>
+<span id="cb4-647"><a href="#cb4-647"></a><span class="ss">-   </span>Measure $P_2$ by contrasting $$Y(0, Z(1), M(1, {\color{ForestGreen}{T(1)}})) \text{ vs } Y(0, Z(0), M(1, \color{ForestGreen}{T(1)}))$$</span>
 <span id="cb4-648"><a href="#cb4-648"></a></span>
-<span id="cb4-649"><a href="#cb4-649"></a>$Z$ is called a recanting witness because "it tells one story" Z(1)</span>
-<span id="cb4-650"><a href="#cb4-650"></a>for purposes of one path, and another story $Z(0) for purposes of the</span>
-<span id="cb4-651"><a href="#cb4-651"></a>other.</span>
+<span id="cb4-649"><a href="#cb4-649"></a><span class="ss">-   </span>Measure $P_3$ by contrasting $$Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(1))) \text{ vs } Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(0)))$$</span>
+<span id="cb4-650"><a href="#cb4-650"></a></span>
+<span id="cb4-651"><a href="#cb4-651"></a><span class="ss">-   </span>Measure the other paths through their identified natural effects</span>
 <span id="cb4-652"><a href="#cb4-652"></a></span>
-<span id="cb4-653"><a href="#cb4-653"></a>But what if we replaced recanting witnesses by randomized versions of</span>
-<span id="cb4-654"><a href="#cb4-654"></a>them that carry some of the same information? Specifically, if $T(a)$</span>
-<span id="cb4-655"><a href="#cb4-655"></a>is a random draw from the distribution of $Z(a)$ conditional on $W$, we can:</span>
+<span id="cb4-653"><a href="#cb4-653"></a>This is what we proposed in a recent paper (@vo2024recanting).</span>
+<span id="cb4-654"><a href="#cb4-654"></a></span>
+<span id="cb4-655"><a href="#cb4-655"></a>The variables $T(a)$ are the *recanting twins* of $Z(1-a)$. Identification requires some of the standard assumptions, namely:</span>
 <span id="cb4-656"><a href="#cb4-656"></a></span>
-<span id="cb4-657"><a href="#cb4-657"></a><span class="ss">- </span>Measure $P_2$ by contrasting</span>
-<span id="cb4-658"><a href="#cb4-658"></a>$$Y(0, Z(1), M(1, {\color{ForestGreen}{T(1)}})) \text{ vs } Y(0, Z(0), M(1, \color{ForestGreen}{T(1)}))$$</span>
-<span id="cb4-659"><a href="#cb4-659"></a></span>
-<span id="cb4-660"><a href="#cb4-660"></a><span class="ss">- </span>Measure $P_3$ by contyrasting</span>
-<span id="cb4-661"><a href="#cb4-661"></a>$$Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(1))) \text{ vs } Y(0, {\color{ForestGreen}{T(0)}}, M(1, Z(0)))$$</span>
+<span id="cb4-657"><a href="#cb4-657"></a><span class="ss">-   </span>$U_A\indep (U_Y, U_M, U_Z)\mid W$,</span>
+<span id="cb4-658"><a href="#cb4-658"></a><span class="ss">-   </span>$U_Z\indep (U_Y, U_M)\mid (A,W)$, and</span>
+<span id="cb4-659"><a href="#cb4-659"></a><span class="ss">-   </span>$U_M\indep U_Y\mid (Z,A,W)$.</span>
+<span id="cb4-660"><a href="#cb4-660"></a></span>
+<span id="cb4-661"><a href="#cb4-661"></a>Under these assumptions, we can identify a decomposition of the ATE as follows:</span>
 <span id="cb4-662"><a href="#cb4-662"></a></span>
-<span id="cb4-663"><a href="#cb4-663"></a><span class="ss">- </span>Measure the other paths through their identified natural effects</span>
-<span id="cb4-664"><a href="#cb4-664"></a></span>
-<span id="cb4-665"><a href="#cb4-665"></a>This is what we proposed in a recent paper (@vo2024recanting).</span>
-<span id="cb4-666"><a href="#cb4-666"></a></span>
-<span id="cb4-667"><a href="#cb4-667"></a>The variables $T(a)$ are the _recanting twins_ of $Z(1-a)$. Identification requires some of the standard assumptions, namely:</span>
-<span id="cb4-668"><a href="#cb4-668"></a></span>
-<span id="cb4-669"><a href="#cb4-669"></a><span class="ss">-  </span>$U_A\indep (U_Y, U_M, U_Z)\mid W$,</span>
-<span id="cb4-670"><a href="#cb4-670"></a><span class="ss">-  </span>$U_Z\indep (U_Y, U_M)\mid (A,W)$, and</span>
-<span id="cb4-671"><a href="#cb4-671"></a><span class="ss">-  </span>$U_M\indep U_Y\mid (Z,A,W)$.</span>
-<span id="cb4-672"><a href="#cb4-672"></a></span>
-<span id="cb4-673"><a href="#cb4-673"></a>Under these assumptions, we can identify a decomposition of the ATE as follows:</span>
-<span id="cb4-674"><a href="#cb4-674"></a></span>
-<span id="cb4-675"><a href="#cb4-675"></a>$$\text{ATE} = \psi_{P_1} + \psi_{P_2} + \psi_{P_3} + \psi_{P_4} +</span>
-<span id="cb4-676"><a href="#cb4-676"></a>  \psi_{\text{IC}},$$</span>
-<span id="cb4-677"><a href="#cb4-677"></a>  </span>
-<span id="cb4-678"><a href="#cb4-678"></a>where</span>
-<span id="cb4-679"><a href="#cb4-679"></a></span>
-<span id="cb4-680"><a href="#cb4-680"></a><span class="ss">- </span>$\psi_{P_i}$ measures the effect through path $P_i$</span>
-<span id="cb4-681"><a href="#cb4-681"></a><span class="ss">- </span>$\psi_{\text{IC}}$ is a remainder that is equal to zero if there is no intermediate confounding, in which case $\psi_{P_i}$ is equal to the (identified) natural path-specific effect. </span>
-<span id="cb4-682"><a href="#cb4-682"></a></span>
-<span id="cb4-683"><a href="#cb4-683"></a>More details on the definition, interpretation, and identification of these effects in the paper!</span>
+<span id="cb4-663"><a href="#cb4-663"></a>$$\text{ATE} = \psi_{P_1} + \psi_{P_2} + \psi_{P_3} + \psi_{P_4} +</span>
+<span id="cb4-664"><a href="#cb4-664"></a>  \psi_{\text{IC}},$$</span>
+<span id="cb4-665"><a href="#cb4-665"></a></span>
+<span id="cb4-666"><a href="#cb4-666"></a>where</span>
+<span id="cb4-667"><a href="#cb4-667"></a></span>
+<span id="cb4-668"><a href="#cb4-668"></a><span class="ss">-   </span>$\psi_{P_i}$ measures the effect through path $P_i$</span>
+<span id="cb4-669"><a href="#cb4-669"></a><span class="ss">-   </span>$\psi_{\text{IC}}$ is a remainder that is equal to zero if there is no intermediate confounding, in which case $\psi_{P_i}$ is equal to the (identified) natural path-specific effect.</span>
+<span id="cb4-670"><a href="#cb4-670"></a></span>
+<span id="cb4-671"><a href="#cb4-671"></a>More details on the definition, interpretation, and identification of these effects in the paper!</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
