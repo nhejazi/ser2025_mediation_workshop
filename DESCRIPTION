@@ -1,4 +1,4 @@
-Package: mcmaWrkshpTmpl
+Package: mcmaWrkshp
 Type: Website
 Title: Modern Causal Mediation Analysis Workshop Template
 Version: 1.0.0
@@ -11,7 +11,10 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-9056-2047")),
     person("Kara", "Rudolph", email = "kr2854@cumc.columbia.edu",
            role = c("aut", "cre", "cph"),
-           comment = c(ORCID = "0000-0002-9417-7960"))
+           comment = c(ORCID = "0000-0002-9417-7960")),
+    person("Nick", "Williams", email = "ntw2117@cumc.columbia.edu",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-1378-4831"))
   )
 Maintainer: Nima Hejazi <nh@nimahejazi.org>
 Depends:
@@ -67,8 +70,8 @@ Remotes:
   xoopR/set6,
   ropensci/aorsf
 URL:
-  https://github.com/nhejazi/causal_mediation_workshops,
-  https://codex.nimahejazi.org/causal_mediation_workshops
-BugReports: https://github.com/nhejazi/causal_mediation_workshops/issues
+  https://github.com/nhejazi/ser2025_mediation_workshop,
+  https://codex.nimahejazi.org/ser2025_mediation_workshop
+BugReports: https://github.com/nhejazi/ser2025_mediation_workshop/issues
 Encoding: UTF-8
 RoxygenNote: 7.1.1

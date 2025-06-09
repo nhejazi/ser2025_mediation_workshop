@@ -26,10 +26,11 @@ renv::autoload()
 library(here)
 ```
 
-# Welcome! {.unnumbered}
+# Welcome to SER 2025! {.unnumbered}
 
 This open source, reproducible vignette accompanies a half-day workshop on
-modern methods for *causal mediation analysis*.
+modern methods for *causal mediation analysis*, offered at the SER 2025 annual
+meeting.
 
 ## About this workshop {#about}
 
@@ -67,7 +68,7 @@ parameter estimable from the observed data distribution). Familiarity with the
 - 11:05A-12:00P: Example walkthrough with `R` packages for effect estimation <!-- Nima, 55-->
 - 12:00A-12:30P: Wrap-up
 
-**NOTE: All times listed in Eastern Standard Time.**
+**NOTE: All times listed in Eastern Daylight Time (EDT).**
 
 ## About the instructors {#instructors}
 
@@ -149,7 +150,7 @@ underlying statistical computing environment. RStudio is a graphical integrated
 development environment (IDE) that makes using R much easier and more
 interactive. You need to install R before you install RStudio.
 
-### Virtual Enironment setup with `renv` {#renv}
+### Virtual environment setup with `renv` {#renv}
 
 These instructions are intended to help with setting up the included [`renv`
 virtual environment](https://rstudio.github.io/renv/index.html), which ensures

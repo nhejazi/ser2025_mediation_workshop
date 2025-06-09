@@ -11,12 +11,12 @@ execute:
   message: false
 
 book:
-  title: "*Modern* Causal Mediation Analysis"
+  title: "[SER 2025] *Modern* Causal Mediation Analysis"
   page-footer:
     left: |
     right: |
-  site-url: https://codex.nimahejazi.org/causal_mediation_workshops/
-  repo-url: https://github.com/nhejazi/causal_mediation_workshops/
+  site-url: https://codex.nimahejazi.org/ser2025_mediation_workshop/
+  repo-url: https://github.com/nhejazi/ser2025_mediation_workshop/
   repo-branch: master
   repo-actions: [edit, issue]
   reader-mode: true
@@ -35,7 +35,7 @@ book:
         - chapters/estimation_natural_interv.qmd
         - chapters/estimation_walkthrough.qmd
     - references.qmd
-    - part: "Appendix"
+    - part: "Appendices"
       chapters:
         - chapters/additional_readings.qmd
         - chapters/stochastic_effects.qmd
@@ -43,7 +43,7 @@ book:
 
 format:
   html:
-    theme: [sandstone, style.scss]
+    theme: [simplex, style.scss]
     callout-appearance: simple
     # TeX-related options
     include-in-header:
@@ -66,7 +66,7 @@ format:
     code-tools: true
     code-line-numbers: true
     code-block-bg: dark
-    highlight-style: ayu-mirage
+    highlight-style: nord
 
 bibliography: refs.bib
 editor: visual
