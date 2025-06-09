@@ -11,7 +11,7 @@ execute:
   message: false
 
 book:
-  title: "[SER 2025] *Modern* Causal Mediation Analysis"
+  title: "*Modern* Causal Mediation Analysis"
   page-footer:
     left: |
     right: |
