@@ -34,7 +34,7 @@ $\rightarrow$ So, could estimate natural (in)direct effects
     -   Direct effect: $\E(Y_{1,M_0} - Y_{0,M_0})$
     -   Indirect effect: $\E(Y_{1,M_1} - Y_{1,M_0})$
 
-![](../img/all_mediators_icd.pdf){width="100%"}
+![](../img/all_mediators_icd.pdf){width="50%"}
 
 
 ## 2. Extent to which the risk of OUD conferred by chronic pain operates through individual pain management treatments
