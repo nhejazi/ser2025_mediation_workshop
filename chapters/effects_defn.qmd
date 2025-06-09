@@ -327,7 +327,7 @@ shorten >=2pt,}
 \end{tikzpicture}
 ```
 
-![](../img/bottomdag.pdf){width="100%"}
+![](../img/bottomdag.pdf){height="100%"}
 
 ### Unidentifiability of the NDE and NIE in this setting
 
