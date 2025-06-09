@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "[SER 2025] Modern Causal Mediation Analysis",
+    "title": "\nModern Causal Mediation Analysis",
     "section": "",
     "text": "Welcome to SER 2025!\nThis open source, reproducible vignette accompanies a half-day workshop on modern methods for causal mediation analysis, offered at the SER 2025 annual meeting.",
     "crumbs": [
@@ -12,7 +12,7 @@
   {
     "objectID": "index.html#about",
     "href": "index.html#about",
-    "title": "[SER 2025] Modern Causal Mediation Analysis",
+    "title": "\nModern Causal Mediation Analysis",
     "section": "About this workshop",
     "text": "About this workshop\nCausal mediation analysis can provide a mechanistic understanding of how an exposure impacts an outcome, a central goal in epidemiology and health sciences. However, rapid methodologic developments coupled with few formal courses presents challenges to implementation. Beginning with an overview of classical direct and indirect effects, this workshop will present recent advances that overcome limitations of previous methods, allowing for: (i) continuous exposures, (ii) multiple, non-independent mediators, and (iii) effects identifiable in the presence of intermediate confounders affected by exposure. Emphasis will be placed on flexible, stochastic and interventional direct and indirect effects, highlighting how these may be applied to answer substantive epidemiological questions from real-world studies. Multiply robust, nonparametric estimators of these causal effects, and free and open source R packages (crumble) for their application, will be introduced.\nTo aid translation to real-world data analysis, this workshop will incorporate hands-on R programming exercises to allow participants practice in implementing the statistical tools presented. It is recommended that participants have working knowledge of the basic notions of causal inference, including counterfactuals and identification (linking the causal effect to a parameter estimable from the observed data distribution). Familiarity with the R programming language is also recommended.",
     "crumbs": [
@@ -22,7 +22,7 @@
   {
     "objectID": "index.html#schedule",
     "href": "index.html#schedule",
-    "title": "[SER 2025] Modern Causal Mediation Analysis",
+    "title": "\nModern Causal Mediation Analysis",
     "section": "Tentative schedule",
     "text": "Tentative schedule\n\n08:30A-08:45A: Introductions + mediation set-up \n\n08:45A-9:15A: Controlled direct effects, natural direct/indirect effects, interventional direct/indirect effects   \n\n9:15A-9:25A: Choosing an estimand in real-world examples \n\n9:25A-10:00A: What is the EIF?! \n\n10:00A-10:30A: Break + discussion\n10:30A-11:05A: Using the EIF for estimating the natural direct effect \n\n11:05A-12:00P: Example walkthrough with R packages for effect estimation \n\n12:00A-12:30P: Wrap-up\n\nNOTE: All times listed in Eastern Daylight Time (EDT).",
     "crumbs": [
@@ -32,7 +32,7 @@
   {
     "objectID": "index.html#instructors",
     "href": "index.html#instructors",
-    "title": "[SER 2025] Modern Causal Mediation Analysis",
+    "title": "\nModern Causal Mediation Analysis",
     "section": "About the instructors",
     "text": "About the instructors\nIván Díaz\nI am an Associate Professor of Biostatistics in the Department of Population Health at the NYU Grossman School of Medicine. My research focuses on the development of non-parametric statistical methods for causal inference from observational and randomized studies with complex datasets, using machine learning. This includes but is not limited to mediation analysis, methods for continuous exposures, longitudinal data including survival analysis, and efficiency guarantees with covariate adjustment in randomized trials. I am also interested in general semi-parametric theory, machine learning, and high-dimensional data.\nNima Hejazi\nI am an Assistant Professor of Biostatistics at the Harvard Chan School of Public Health, where my research program explores how advances in causal inference, machine learning, and computational statistics help catalyze discovery in the biomedical and health sciences. I develop model-agnostic statistical methods using ideas from causal inference, semi-parametric statistics, and causal machine learning. Areas of recent emphasis have included causal mediation analysis, causal inference for continuous exposures, efficient inference under auxiliary- or outcome-dependent sampling designs, and sieve methods for causal machine learning. My methods research is directly tied to applied science problems from studies of investigational agents to treat or prevent infectious diseases, chronic diseases, and cancer. I am also interested in open-source software and high-performance computing for statistics and in reproducible statistical data science.\nKara Rudolph\nI am an Associate Professor of Epidemiology at the Columbia Mailman School of Public Health. My research interests are in developing and applying causal inference methods to understand social and contextual influences on mental health, substance use, and violence in disadvantaged, urban areas of the United States. My current work focuses on developing methods for transportability and mediation, and subsequently applying those methods to understand how aspects of the school and peer environments mediate relationships between neighborhood factors and adolescent drug use across populations. More generally, my work on generalizing/transporting findings from study samples to target populations and identifying subpopulations most likely to benefit from interventions contributes to efforts to optimally target available policy and program resources.\nNick Williams\nI am a Senior Data Analyst in Columbia University’s Mailman School of Public Health, Department of Epidemiology, and an incoming PhD student in Biostatistics at the University of California, Berkeley. My interests are in the development of statistical computing tools for novel causal inference methods. I am the author and maintainer of several R packages for conducting causal analyses in R.",
     "crumbs": [
@@ -42,7 +42,7 @@
   {
     "objectID": "index.html#repro",
     "href": "index.html#repro",
-    "title": "[SER 2025] Modern Causal Mediation Analysis",
+    "title": "\nModern Causal Mediation Analysis",
     "section": "Reproducibility note",
     "text": "Reproducibility note\nThese workshop materials were written using the Quarto, an open-source, cross-platform technical publishing system built on RMarkdown, and the complete source is available on GitHub. This version of the book was built with R version 4.5.0 (2025-04-11), pandoc version 3.6.3, and quarto version 1.7.31. See the renv.lock file in the source repository for an up-to-date list of the packages used.",
     "crumbs": [
@@ -52,7 +52,7 @@
   {
     "objectID": "index.html#setup",
     "href": "index.html#setup",
-    "title": "[SER 2025] Modern Causal Mediation Analysis",
+    "title": "\nModern Causal Mediation Analysis",
     "section": "Setup instructions",
     "text": "Setup instructions\nR and RStudio\nR and RStudio are separate downloads and installations. R is the underlying statistical computing environment. RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. You need to install R before you install RStudio.\nVirtual environment setup with renv\n\nThese instructions are intended to help with setting up the included renv virtual environment, which ensures all participants are using the same exact set of R packages (and package versions). A few important notes to keep in mind:\n\nWhen R is started from the top level of this repository, renv is activated automatically. There is no further action required on your part. If renv is not installed, it will be installed automatically, assuming that you have an active internet connection.\nWhile renv is active, the R session will only have access to the packages (and their dependencies) that are listed in the renv.lock file—that is, you should not expect to have access to any other R packages that may be installed elsewhere on the computing system in use.\nUpon an initial attempt, renv will prompt you to install packages listed in the renv.lock file, by printing a message.\n\nIn any such case, please call renv::status() to review the list of packages missing and to view renv’s recommendations for fixing the issue; usually, renv::restore() will be the next step necessary to install any missing packages. Note that you do not need to manually install the packages via install.packages(), remotes::install_github(), or similar, as renv will attempt do this for you.\nWhile unnecessary for the purposes of this workshop, if you’d like to learn more about the details of how the renv virtual environment system works, the following references may be helpful:\n\nCollaborating with renv\nIntroduction to renv\n\nIn some rare cases, R packages that renv automatically tries to install as part of the renv::restore() process may fail due to missing systems-level dependencies. In such cases, a reference to the missing dependencies and system-specific instructions their installation involving, e.g., Ubuntu Linux’s apt or homebrew for macOS, will usually be displayed.",
     "crumbs": [
@@ -481,7 +481,7 @@
     "href": "chapters/stochastic_effects.html#what-are-the-odds-of-exposure-under-intervention-vs-real-world",
     "title": "8  Appendix: Stochastic direct and indirect effects",
     "section": "\n8.5 What are the odds of exposure under intervention vs real world?",
-    "text": "8.5 What are the odds of exposure under intervention vs real world?\n\nCodeodds &lt;- (pscore_delta / (1 - pscore_delta)) / (pscore / (1 - pscore))\nsummary(odds)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n      2       2       2       2       2       2 \n\n\n\n\nCompute the sum \\[\\begin{equation*}\n  \\color{Goldenrod}{\\sum_{a}\\color{ForestGreen}{\\{\\E(Y\\mid A=a, W) -\n    \\E(Y\\mid A=a, M, W)\\}}g_\\delta(a\\mid W)}\n\\end{equation*}\\]\n\nCodeindirect &lt;- pseudo_a1 * pscore_delta + pseudo_a0 * (1 - pscore_delta)\n\n\n\n\nThe average of this value is the indirect effect\n\nCode## E[Y(Adelta) - Y(Adelta, M)]\nmean(indirect)\n\n[1] 0.1089619\n\n\n\nThe direct effect is \\[\\begin{align*}\n  \\E&(Y_{A_\\delta} - Y_{A_\\delta, M}) =\\\\\n  &\\E\\left[\\color{Goldenrod}{\\sum_{a}\\color{ForestGreen}{\\{\\E(Y\\mid A=a, M,\n    W) - Y\\}}g_\\delta(a\\mid W)}\\right]\n\\end{align*}\\]\n\nWhich can be computed as\n\nCodedirect &lt;- (pred_y1_a1 - y) * pscore_delta +\n(pred_y1_a0 - y) * (1 - pscore_delta)\nmean(direct)\n\n[1] 0.109599",
+    "text": "8.5 What are the odds of exposure under intervention vs real world?\n\nCodeodds &lt;- (pscore_delta / (1 - pscore_delta)) / (pscore / (1 - pscore))\nsummary(odds)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n      2       2       2       2       2       2 \n\n\n\n\nCompute the sum \\[\\begin{equation*}\n  \\color{Goldenrod}{\\sum_{a}\\color{ForestGreen}{\\{\\E(Y\\mid A=a, W) -\n    \\E(Y\\mid A=a, M, W)\\}}g_\\delta(a\\mid W)}\n\\end{equation*}\\]\n\nCodeindirect &lt;- pseudo_a1 * pscore_delta + pseudo_a0 * (1 - pscore_delta)\n\n\n\n\nThe average of this value is the indirect effect\n\nCode## E[Y(Adelta) - Y(Adelta, M)]\nmean(indirect)\n\n[1] 0.1088365\n\n\n\nThe direct effect is \\[\\begin{align*}\n  \\E&(Y_{A_\\delta} - Y_{A_\\delta, M}) =\\\\\n  &\\E\\left[\\color{Goldenrod}{\\sum_{a}\\color{ForestGreen}{\\{\\E(Y\\mid A=a, M,\n    W) - Y\\}}g_\\delta(a\\mid W)}\\right]\n\\end{align*}\\]\n\nWhich can be computed as\n\nCodedirect &lt;- (pred_y1_a1 - y) * pscore_delta +\n(pred_y1_a0 - y) * (1 - pscore_delta)\nmean(direct)\n\n[1] 0.1090729",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Appendix: Stochastic direct and indirect effects</span>"
