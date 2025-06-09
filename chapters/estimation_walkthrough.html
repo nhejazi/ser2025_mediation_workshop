@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>6&nbsp; R packages for estimation of the causal (in)direct effects – *Modern* Causal Mediation Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../references.html" rel="next">
+<link href="../chapters/estimation_natural_interv.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-270299684446e0b5af7414e26ecc8124.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-74a3d9df51daef88989bffa06d210f62.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script>
+  MathJax = {
+    tex: {
+      tags: 'ams',  // should be 'ams', 'none', or 'all'
+      macros: {
+        E: '{\\mathbb{E}}',
+        V: '{\\mathbb{V}}',
+        P: '{\\mathsf{P}}',
+        M: '{\\mathsf{M}}',
+        Pr: '{\\mathbb{P}}',
+        R: '{\\mathbb{R}}',
+        I: '{\\mathbb{I}}',
+        1: '{\\mathbb{1}}',
+        D: '{\\mathcal{D}}',
+        F: '{\\mathcal{F}}',
+        M: '{\\mathcal{M}}',
+        C: '{\\mathcal{C}}',
+        G: '{\\mathcal{G}}',
+        X: '{\\mathcal{X}}',
+        Z: '{\\mathcal{Z}}',
+        Hold: '{\\mathcal{H}}',
+        lik: '{\\mathcal{L}}',
+        logit: '{\\operatorname{logit}}',
+        expit: '{\\operatorname{expit}}',
+        argmin: '{\\operatorname*{arg\\,min}}',
+        argmax: '{\\operatorname*{arg\\,max}}',
+        indep: '{\\perp\\!\\!\\!\\perp}',
+        notindep: '{\\centernot{\\perp\\!\\!\\!\\perp}}',
+        coloneqq: '{\\mathrel{\\vcenter{:}}=}',
+        iid: '{\\,\\, \\mathbin{\\overset{\\text{iid}}{\\sim}} \\,\\,}',
+        asto: '{\\mathbin{\\underset{a.s.}{\\to}}}',
+        pto: '{\\mathbin{\\underset{p}{\\to}}}',
+        dto: '{\\mathbin{\\underset{d}{\\to}}}'
+      }
+    }
+  };
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/estimation_prelims.html">Estimation</a></li><li class="breadcrumb-item"><a href="../chapters/estimation_walkthrough.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> packages for estimation of the causal (in)direct effects</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../"><em>Modern</em> Causal Mediation Analysis</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/nhejazi/causal_mediation_workshops/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Identification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Causal mediation analysis intro</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/effects_defn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Types of path-specific causal mediation effects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/how_to_choose.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to choose an estimand: Real-world example</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/estimation_prelims.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimation preliminaries: Review of doubly robust estimators for the ATE</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/estimation_natural_interv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Construction of G-computation and weighted estimators: The case of the NDE</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/estimation_walkthrough.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> packages for estimation of the causal (in)direct effects</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/additional_readings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Appendix: Additional topics of interest</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/stochastic_effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendix: Stochastic direct and indirect effects</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+<li><a href="#crumble-flexible-and-general-mediation-analysis" id="toc-crumble-flexible-and-general-mediation-analysis" class="nav-link active" data-scroll-target="#crumble-flexible-and-general-mediation-analysis"><span class="header-section-number">6.1</span> <code>crumble</code>: Flexible and general mediation analysis</a></li>
+  <li><a href="#estimating-nuisance-parameters" id="toc-estimating-nuisance-parameters" class="nav-link" data-scroll-target="#estimating-nuisance-parameters"><span class="header-section-number">6.2</span> Estimating nuisance parameters</a></li>
+  <li><a href="#efficient-estimation-of-the-natural-indirect-effects" id="toc-efficient-estimation-of-the-natural-indirect-effects" class="nav-link" data-scroll-target="#efficient-estimation-of-the-natural-indirect-effects"><span class="header-section-number">6.3</span> Efficient estimation of the natural (in)direct effects</a></li>
+  <li><a href="#efficient-estimation-of-the-interventional-indirect-effects" id="toc-efficient-estimation-of-the-interventional-indirect-effects" class="nav-link" data-scroll-target="#efficient-estimation-of-the-interventional-indirect-effects"><span class="header-section-number">6.4</span> Efficient estimation of the interventional (in)direct effects</a></li>
+  </ul><div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/nhejazi/causal_mediation_workshops/edit/master/chapters/estimation_walkthrough.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nhejazi/causal_mediation_workshops/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/estimation_prelims.html">Estimation</a></li><li class="breadcrumb-item"><a href="../chapters/estimation_walkthrough.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> packages for estimation of the causal (in)direct effects</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> packages for estimation of the causal (in)direct effects</span>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>We’ll now turn to working through a few examples of estimating the natural and interventional direct and indirect effects. We will be using the <a href="https://cran.r-project.org/web/packages/crumble/index.html"><code>crumble</code> <code>R</code> package</a>, which provides a unified framework for estimating many of the common mediation estimands, and supports high-dimensional exposures, mediators, and mediator-outcome confounders. However, many software implementations exist in the <code>R</code> ecosystem for performing mediation analyses; notably, <code>crumble</code> was heavily inspired by <a href="https://github.com/nhejazi/medoutcon"><code>medoutcon</code></a>, <a href="https://github.com/nt-williams/HDmediation"><code>HDmediation</code></a>, and <a href="https://github.com/nt-williams/lcm"><code>lcm</code></a>.</p>
+<p>As our running example, we’ll use a simple data set from an observational study of the relationship between BMI and kids’ behavior, freely distributed with the <a href="https://CRAN.R-project.org/package=mma"><code>mma</code> <code>R</code> package on CRAN</a>. First, let’s load the packages we’ll be using and set a seed for reproducibility; then, load this data set and take a quick look.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(crumble)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(mlr3extralearners)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(fastDummies)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(torch)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">set.seed</span>(<span class="dv">4235243</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">torch_manual_seed</span>(<span class="dv">657</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># load and examine data</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">data</span>(weight_behavior, <span class="at">package =</span> <span class="st">"mma"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># drop missing values</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>weight_behavior <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(weight_behavior)</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># dummy code (aka one-hot-encode) factors</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>weight_behavior <span class="ot">&lt;-</span> <span class="fu">dummy_cols</span>(</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  weight_behavior, <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"sports"</span>, <span class="st">"snack"</span>),</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">remove_selected_columns =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="at">remove_first_dummy =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="fu">head</span>(weight_behavior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       bmi  age  race numpeople car gotosch tvhours cmpthours cellhours
+1 18.20665 12.2 OTHER         5   3       2       4         0         0
+2 22.78401 12.8 OTHER         4   3       2       4         2         0
+3 25.56754 12.1 OTHER         2   3       2       0         2         0
+4 15.07408 12.3 OTHER         4   1       2       2         1         3
+5 22.98338 11.8 OTHER         4   1       1       4         3         2
+6 19.15658 12.1 OTHER         3   3       2       0         0         1
+  exercises sweat overweigh sex_F sex_M sports_2 snack_2
+1         2     1         0     1     0        1       0
+2         8     2         0     0     1        0       0
+3         9     1         1     0     1        1       0
+4        12     1         0     0     1        0       0
+5         1     1         0     0     1        0       0
+6         1     3         0     1     0        0       0</code></pre>
+</div>
+</div>
+<p>The documentation for the data set describes it as a “database obtained from the Louisiana State University Health Sciences Center, New Orleans, by Dr. Richard Scribner. He explored the relationship between BMI and kids’ behavior through a survey at children, teachers and parents in Grenada in 2014. This data set includes 691 observations and 15 variables.” Note that the data set contained several observations with missing values, which we removed above to simplify the demonstration of our analytic methods. In practice, we recommend instead using appropriate corrections (e.g., imputation, inverse weighting) to fully take advantage of the observed data.</p>
+<p>Following the motivation of the original study, we focus on the causal effects of participating in a sports team (<code>sports_2</code>) on the BMI of children (<code>bmi</code>), taking into consideration several mediators (<code>snack_2</code>, <code>exercises</code>); <code>c("age", "sex_F", "tvhours")</code> are taken to be potential baseline confounders.</p>
+<section id="crumble-flexible-and-general-mediation-analysis" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="crumble-flexible-and-general-mediation-analysis">
+<span class="header-section-number">6.1</span> <code>crumble</code>: Flexible and general mediation analysis</h2>
+<ul>
+<li>
+<code>crumble</code> implements a one-step estimator of the natural, interventional, and organic (in)direct effect, as well as path-specific effects using recanting twins.</li>
+<li>The estimator is capable of accommodating flexible modeling strategies (e.g., ensemble machine learning) for the initial estimation of nuisance parameters.</li>
+<li>To this end, <code>crumble</code> integrates with the <a href="https://cran.r-project.org/package=mlr3superlearner"><code>mlr3superlearner</code> R package</a>.</li>
+<li>The estimator uses cross-fitting of nuisance parameters.</li>
+</ul>
+<p>The data on a single observational unit can be represented <span class="math inline">\(O = (W, A, M, Y)\)</span>, with the data pooled across all participants denoted <span class="math inline">\(O_1, \ldots, O_n\)</span>, for a of <span class="math inline">\(n\)</span> i.i.d. observations of <span class="math inline">\(O\)</span>. Recall the DAG <a href="effects_defn.html">from an earlier chapter</a>, which represents the data-generating process:</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">\dimendef\prevdepth</span>=0</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">\pgfdeclarelayer</span>{background}</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">\pgfsetlayers</span>{background,main}</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">\usetikzlibrary</span>{arrows,positioning}</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">\tikzset</span>{</span>
+<span id="cb3-6"><a href="#cb3-6"></a>&gt;=stealth',</span>
+<span id="cb3-7"><a href="#cb3-7"></a>punkt/.style={</span>
+<span id="cb3-8"><a href="#cb3-8"></a>rectangle,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>rounded corners,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>draw=black, very thick,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>text width=6.5em,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>minimum height=2em,</span>
+<span id="cb3-13"><a href="#cb3-13"></a>text centered},</span>
+<span id="cb3-14"><a href="#cb3-14"></a>pil/.style={</span>
+<span id="cb3-15"><a href="#cb3-15"></a>-&gt;,</span>
+<span id="cb3-16"><a href="#cb3-16"></a>thick,</span>
+<span id="cb3-17"><a href="#cb3-17"></a>shorten &lt;=2pt,</span>
+<span id="cb3-18"><a href="#cb3-18"></a>shorten &gt;=2pt,}</span>
+<span id="cb3-19"><a href="#cb3-19"></a>}</span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="fu">\newcommand</span>{<span class="ex">\Vertex</span>}[2]</span>
+<span id="cb3-21"><a href="#cb3-21"></a>{<span class="fu">\node</span>[minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {<span class="ss">$#2$</span>};</span>
+<span id="cb3-22"><a href="#cb3-22"></a>}</span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="fu">\newcommand</span>{<span class="ex">\VertexR</span>}[2]</span>
+<span id="cb3-24"><a href="#cb3-24"></a>{<span class="fu">\node</span>[rectangle, draw, minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {<span class="ss">$#2$</span>};</span>
+<span id="cb3-25"><a href="#cb3-25"></a>}</span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="fu">\newcommand</span>{<span class="ex">\ArrowR</span>}[3]</span>
+<span id="cb3-27"><a href="#cb3-27"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="fu">\draw</span>[-&gt;,#3] (#1) to[bend right=30] (#2);</span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb3-30"><a href="#cb3-30"></a>}</span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="fu">\newcommand</span>{<span class="ex">\ArrowL</span>}[3]</span>
+<span id="cb3-32"><a href="#cb3-32"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="fu">\draw</span>[-&gt;,#3] (#1) to[bend left=45] (#2);</span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb3-35"><a href="#cb3-35"></a>}</span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="fu">\newcommand</span>{<span class="ex">\EdgeL</span>}[3]</span>
+<span id="cb3-37"><a href="#cb3-37"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="fu">\draw</span>[dashed,#3] (#1) to[bend right=-45] (#2);</span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb3-40"><a href="#cb3-40"></a>}</span>
+<span id="cb3-41"><a href="#cb3-41"></a><span class="fu">\newcommand</span>{<span class="ex">\Arrow</span>}[3]</span>
+<span id="cb3-42"><a href="#cb3-42"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb3-43"><a href="#cb3-43"></a><span class="fu">\draw</span>[-&gt;,#3] (#1) -- +(#2);</span>
+<span id="cb3-44"><a href="#cb3-44"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb3-45"><a href="#cb3-45"></a>}</span>
+<span id="cb3-46"><a href="#cb3-46"></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}</span>
+<span id="cb3-47"><a href="#cb3-47"></a>  <span class="fu">\Vertex</span>{-4, 0}{W}</span>
+<span id="cb3-48"><a href="#cb3-48"></a>  <span class="fu">\Vertex</span>{0, 0}{M}</span>
+<span id="cb3-49"><a href="#cb3-49"></a>  <span class="fu">\Vertex</span>{-2, 0}{A}</span>
+<span id="cb3-50"><a href="#cb3-50"></a>  <span class="fu">\Vertex</span>{2, 0}{Y}</span>
+<span id="cb3-51"><a href="#cb3-51"></a>  <span class="fu">\Arrow</span>{W}{A}{black}</span>
+<span id="cb3-52"><a href="#cb3-52"></a>  <span class="fu">\Arrow</span>{A}{M}{black}</span>
+<span id="cb3-53"><a href="#cb3-53"></a>  <span class="fu">\Arrow</span>{M}{Y}{black}</span>
+<span id="cb3-54"><a href="#cb3-54"></a>  <span class="fu">\ArrowL</span>{W}{Y}{black}</span>
+<span id="cb3-55"><a href="#cb3-55"></a>  <span class="fu">\ArrowL</span>{A}{Y}{black}</span>
+<span id="cb3-56"><a href="#cb3-56"></a>  <span class="fu">\ArrowL</span>{W}{M}{black}</span>
+<span id="cb3-57"><a href="#cb3-57"></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="estimation_walkthrough_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption>Directed acyclic graph under <em>no intermediate confounders</em> of the mediator-outcome relation affected by treatment</figcaption></figure>
+</div>
+</div>
+</div>
+<ul>
+<li>In <code>crumble()</code>, <span class="math inline">\(A\)</span> is denoted <code>trt</code>, <span class="math inline">\(Y\)</span> is denoted <code>outcome</code>, <span class="math inline">\(M\)</span> is denoted <code>mediators</code>, and <span class="math inline">\(W\)</span> is denoted <code>covar</code>.</li>
+</ul></section><section id="estimating-nuisance-parameters" class="level2 page-columns page-full" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="estimating-nuisance-parameters">
+<span class="header-section-number">6.2</span> Estimating nuisance parameters</h2>
+<ul>
+<li>Recall that the one-step estimator can be thought of as a combination of a weighted estimator and a regression estimator.</li>
+<li>We’d like to rely on flexible, data adaptive strategies for nuisance parameter estimation.</li>
+<li>Doing so minimizes opportunities for model mis-specification to compromise our analytic conclusions.</li>
+</ul>
+<section id="super-learning" class="level3 page-columns page-full" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="super-learning">
+<span class="header-section-number">6.2.1</span> Super learning</h3>
+<ul>
+<li>For the regression function parts of the EIF (e.g., <span class="math inline">\(\E[Y\mid A,M,W]\)</span>), <code>crumble</code> uses the Super Learner algorithm for ensemble machine learning <span class="citation" data-cites="vdl2007super">(<a href="../references.html#ref-vdl2007super" role="doc-biblioref">van der Laan, Polley, and Hubbard 2007</a>)</span>, which is implemented in the <a href="https://cran.r-project.org/package=mlr3superlearner"><code>mlr3superlearner</code> R package</a>.</li>
+<li>Below, we demonstrate the construction of an ensemble learner based on a limited library of algorithms, including an intercept model, a main terms GLM, LASSO (<span class="math inline">\(\ell_1\)</span>-penalized) regression, and random forest (<code>ranger</code>).</li>
+</ul>
+<div class="no-row-height column-margin column-container"><div id="ref-vdl2007super" class="csl-entry" role="listitem">
+van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Super Learner</span>.”</span> <em>Statistical Applications in Genetics and Molecular Biology</em> 6 (1).
+</div></div><div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ensemble <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="st">"mean"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="st">"glm"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="st">"cv_glmnet"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">list</span>(<span class="st">"ranger"</span>, <span class="at">num.trees =</span> <span class="dv">200</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Of course, there are many alternatives for learning algorithms to be included in such a modeling library. Feel free to explore!</li>
+</ul></section><section id="riesz-representers" class="level3 page-columns page-full" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="riesz-representers">
+<span class="header-section-number">6.2.2</span> Riesz representers</h3>
+<p>In a subset of the semi-parametric and double-machine learning literature, the weights in the EIF are sometimes referred to as <em>Riesz representers</em>. To understand why, let’s imagine that we want to estimate the total effect (i.e., the ATE) of a binary treatment <span class="math inline">\(A\)</span> on some outcome <span class="math inline">\(Y\)</span> accounting for confounders <span class="math inline">\(W\)</span>. Under standard identification assumptions, this effect is identified from the observed data as</p>
+<p><span class="math display">\[
+\psi = \E[\E[Y\mid A= 1,W] - \E[Y\mid A= 0,W]]\text{.}
+\]</span></p>
+<p>Let’s denote <span class="math inline">\(Q(a,W) = \E[Y\mid A=a,W]\)</span> and <span class="math inline">\(m(O;Q)\)</span> as a continuous linear mapping of <span class="math inline">\(Q(a,W)\)</span> and the observed data. In the case of the total effect, <span class="math inline">\(m(O;Q) = Q(1,W) - Q(0,W)\)</span>. We can then re-write the total effect as</p>
+<p><span class="math display">\[
+\E[m(O;Q)]\text{.}
+\]</span></p>
+<p>Now, consider that the total effect can equivalently be identified as</p>
+<p><span class="math display">\[
+\E\bigg[\bigg\{\frac{\I(A=1)}{\P(A=1 \mid W)} - \frac{\I(A=0)}{1 - \P(A=1 \mid
+W)}\bigg\}Y \bigg]\text{.}
+\]</span></p>
+<p>Let’s denote <span class="math inline">\(\frac{\I(A=1)}{\P(A=1 \mid W)} - \frac{\I(A=0)}{1 - \P(A=1 \mid
+W)}\)</span> as <span class="math inline">\(\alpha_0(W)\)</span>. Then,</p>
+<p><span class="math display">\[
+\E[m(O;Q)] = \E[\alpha_0(W) \cdot Y]\text{.}
+\]</span></p>
+<p>According to the Riesz representation theorem, if <span class="math inline">\(m(O;Q)\)</span> is a continuous linear functional of <span class="math inline">\(Q\)</span> (which it is), then there exists a unique function <span class="math inline">\(\alpha_0(W)\)</span>–the so-called Riesz representer–such that</p>
+<p><span class="math display">\[
+\E[m(O;Q)] = \E[\alpha_0(W) \cdot Q(A,W)]\text{.}
+\]</span></p>
+<p>Using the tower rule, we have</p>
+<p><span class="math display">\[
+\begin{align*}
+\E[m(O;Q)] &amp;= \E[\alpha_0(W) \cdot Y]\\
+&amp;= \E\big[\E[\alpha_0(W) \cdot Y\mid A,W]\big] \\
+&amp;= \E\big[\alpha_0(W) \cdot \E[Y\mid A,W]\big] \\
+&amp; = \E[\alpha_0(W) \cdot Q(A,W)]\text{.}
+\end{align*}
+\]</span></p>
+<p>Thus, <span class="math inline">\(\frac{\I(A=1)}{\P(A=1 \mid W)} - \frac{\I(A=0)}{1 - \P(A=1 \mid W)}\)</span> is the Riesz representer for estimating the total effect of <span class="math inline">\(A\)</span> on <span class="math inline">\(Y\)</span>!</p>
+<p>While <span class="math inline">\(\alpha_0(W)\)</span> for the total effect has a nice close-form solution that can be easily estimated with off-the-shelf software, this isn’t always the case. With that in mind, <span class="citation" data-cites="chernozhukov2021automatic">Chernozhukov et al. (<a href="../references.html#ref-chernozhukov2021automatic" role="doc-biblioref">2021</a>)</span> showed that the Riesz representer is the minimizer of the the so-called Riesz loss:</p>
+<div class="no-row-height column-margin column-container"><div id="ref-chernozhukov2021automatic" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Whitney K Newey, Victor Quintas-Martinez, and Vasilis Syrgkanis. 2021. <span>“Automatic Debiased Machine Learning via Riesz Regression.”</span> <em>arXiv Preprint arXiv:2104.14737</em>.
+</div></div><p><span class="math display">\[
+\text{arg min}_\alpha \E[\alpha_0(W)^2 - 2\cdot m(O;\alpha)]\text{.}
+\]</span></p>
+<p>This means that we can directly estimate <span class="math inline">\(\alpha_0(W)\)</span> by minimizing the above loss function! For the case of mediation analysis, the methods we proposed in <span class="citation" data-cites="liu2024general">Liu et al. (<a href="../references.html#ref-liu2024general" role="doc-biblioref">2024</a>)</span> and implemented in <code>crumble</code> estimate Riesz representers of the type:</p>
+<div class="no-row-height column-margin column-container"><div id="ref-liu2024general" class="csl-entry" role="listitem">
+Liu, Richard, Nicholas T Williams, Kara E Rudolph, and Iván Dı́az. 2024. <span>“General Targeted Machine Learning for Modern Causal Mediation Analysis.”</span> <em>arXiv Preprint arXiv:2408.14620</em>.
+</div></div><p><span class="math display">\[
+\frac{\I(A_i=1)}{\hat{\P}(A_i=1 \mid W_i)}
+      \frac{\hat{\P}(M_i \mid A_i=0,W)_i}{\hat{\P}(M_i \mid A_i=1,W_i)} -
+      \frac{\I(A=0)}{\hat{\P}(A_i=0 \mid W_i)}\text{.}
+\]</span></p>
+<p><code>crumble</code> estimates this value (and others) for mediational effects directly by minimizing the Riesz loss with deep learning using <code>torch</code>. <strong>Much of this is abstracted away from the analyst</strong>, but we still need to specify some type of deep-learning architecture to use <code>crumble</code>. Here’s an example of a simple multilayer perceptron (MLP) with two hidden layers, each with 10 units, and a dropout rate of 0.1 which we create using the <code>sequential_module()</code> function from <code>crumble</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>mlp <span class="ot">&lt;-</span> <span class="fu">sequential_module</span>(<span class="at">layers =</span> <span class="dv">2</span>, <span class="at">hidden =</span> <span class="dv">10</span>, <span class="at">dropout =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="efficient-estimation-of-the-natural-indirect-effects" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="efficient-estimation-of-the-natural-indirect-effects">
+<span class="header-section-number">6.3</span> Efficient estimation of the natural (in)direct effects</h2>
+<p>To start, we will consider estimation of the <em>natural</em> direct and indirect effects, which, we recall, are defined as follows</p>
+<p><span class="math display">\[
+  \E[Y_{1,M_1} - Y_{0,M_0}] =
+    \underbrace{\E[Y_{\color{red}{1},\color{blue}{M_1}} -
+    Y_{\color{red}{1},\color{blue}{M_0}}]}_{\text{natural indirect effect}} +
+    \underbrace{\E[Y_{\color{blue}{1},\color{red}{M_0}} -
+    Y_{\color{blue}{0},\color{red}{M_0}}]}_{\text{natural direct effect}}.
+\]</span></p>
+<p>Let’s use the <code>crumble()</code> function to estimate the natural direct and indirect effect.</p>
+<ul>
+<li>We’ll use the ensemble of the intercept model, a main terms GLM, LASSO (<span class="math inline">\(\ell_1\)</span>-penalized) regression, and random forest we defined above (<code>ensemble</code>) for the regression parameters</li>
+<li>We’ll use the multilayer perceptron we defined above (<code>mlp</code>) to estimate the Riesz representers.</li>
+<li>To indicate we want to estimate the natural (in)direct effects, we set <code>effect = "N"</code>.</li>
+<li>
+<code>crumble</code> was designed to also work with continuous exposures. Because of this, we need to specify the treatment regimes to create the contrasts for the (in)direct effects.
+<ul>
+<li>
+<code>d0</code> and <code>d1</code> are functions that return the treatment assignment under the two regimes. In our case, we want to estimate the effect of participating in a sports team, so we set <code>d0</code> to always return 1 (i.e., no participation) and <code>d1</code> to always return 0 (i.e., participation).</li>
+<li>Want to learn more about specifying causal effects using these <code>d</code> functions? Check out the workshop, <em>Beyond the ATE</em> happening after this one!</li>
+</ul>
+</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># compute one-step estimates of the natural effects</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">crumble</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="at">data =</span> weight_behavior,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="at">trt =</span> <span class="st">"sports_2"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="at">outcome =</span> <span class="st">"bmi"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="at">covar =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"sex_F"</span>, <span class="st">"tvhours"</span>),</span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="at">mediators =</span> <span class="fu">c</span>(<span class="st">"snack_2"</span>, <span class="st">"exercises"</span>),</span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="at">d0 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="at">d1 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="at">effect =</span> <span class="st">"N"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="at">learners =</span> ensemble,</span>
+<span id="cb6-12"><a href="#cb6-12"></a>  <span class="at">nn_module =</span> mlp,</span>
+<span id="cb6-13"><a href="#cb6-13"></a>  <span class="at">control =</span> <span class="fu">crumble_control</span>(<span class="at">crossfit_folds =</span> <span class="dv">1</span>L, <span class="at">epochs =</span> <span class="dv">10</span>L, <span class="at">learning_rate =</span> <span class="fl">0.01</span>)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co"># ✔ Fitting outcome regressions... 1/1 folds [5.4s]</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co"># ✔ Computing alpha n density ratios... 1/1 folds [7s]</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co"># ══ Results `crumble()` ════════════════════════════════════════════════════════════════</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co"># ── Direct Effect</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#       Estimate: -1.08</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#     Std. error: 0.26</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co"># 95% Conf. int.: -1.6, -0.57</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co"># ── Indirect Effect</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#       Estimate: 0.06</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#     Std. error: 0.05</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="co"># 95% Conf. int.: -0.05, 0.16</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co"># ── Average Treatment Effect</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#       Estimate: -1.03</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#     Std. error: 0.3</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a><span class="co"># 95% Conf. int.: -1.61, -0.44</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="efficient-estimation-of-the-interventional-indirect-effects" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="efficient-estimation-of-the-interventional-indirect-effects">
+<span class="header-section-number">6.4</span> Efficient estimation of the interventional (in)direct effects</h2>
+<p>Since our knowledge of the system under study is incomplete, we might worry that one (or more) of the measured variables are not mediators, but, in fact, intermediate confounders affected by treatment. While the natural (in)direct effects are not identified in this setting, their interventional (in)direct counterparts are, as we saw in an earlier section. Recall that both types of effects are defined by static interventions on the treatment. The interventional effects are distinguished by their use of a stochastic intervention on the mediator to aid in their identification.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">\dimendef\prevdepth</span>=0</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">\pgfdeclarelayer</span>{background}</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">\pgfsetlayers</span>{background,main}</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">\usetikzlibrary</span>{arrows,positioning}</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="fu">\tikzset</span>{</span>
+<span id="cb7-6"><a href="#cb7-6"></a>&gt;=stealth',</span>
+<span id="cb7-7"><a href="#cb7-7"></a>punkt/.style={</span>
+<span id="cb7-8"><a href="#cb7-8"></a>rectangle,</span>
+<span id="cb7-9"><a href="#cb7-9"></a>rounded corners,</span>
+<span id="cb7-10"><a href="#cb7-10"></a>draw=black, very thick,</span>
+<span id="cb7-11"><a href="#cb7-11"></a>text width=6.5em,</span>
+<span id="cb7-12"><a href="#cb7-12"></a>minimum height=2em,</span>
+<span id="cb7-13"><a href="#cb7-13"></a>text centered},</span>
+<span id="cb7-14"><a href="#cb7-14"></a>pil/.style={</span>
+<span id="cb7-15"><a href="#cb7-15"></a>-&gt;,</span>
+<span id="cb7-16"><a href="#cb7-16"></a>thick,</span>
+<span id="cb7-17"><a href="#cb7-17"></a>shorten &lt;=2pt,</span>
+<span id="cb7-18"><a href="#cb7-18"></a>shorten &gt;=2pt,}</span>
+<span id="cb7-19"><a href="#cb7-19"></a>}</span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="fu">\newcommand</span>{<span class="ex">\Vertex</span>}[2]</span>
+<span id="cb7-21"><a href="#cb7-21"></a>{<span class="fu">\node</span>[minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {<span class="ss">$#2$</span>};</span>
+<span id="cb7-22"><a href="#cb7-22"></a>}</span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="fu">\newcommand</span>{<span class="ex">\VertexR</span>}[2]</span>
+<span id="cb7-24"><a href="#cb7-24"></a>{<span class="fu">\node</span>[rectangle, draw, minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {<span class="ss">$#2$</span>};</span>
+<span id="cb7-25"><a href="#cb7-25"></a>}</span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="fu">\newcommand</span>{<span class="ex">\ArrowR</span>}[3]</span>
+<span id="cb7-27"><a href="#cb7-27"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="fu">\draw</span>[-&gt;,#3] (#1) to[bend right=30] (#2);</span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb7-30"><a href="#cb7-30"></a>}</span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="fu">\newcommand</span>{<span class="ex">\ArrowL</span>}[3]</span>
+<span id="cb7-32"><a href="#cb7-32"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="fu">\draw</span>[-&gt;,#3] (#1) to[bend left=45] (#2);</span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb7-35"><a href="#cb7-35"></a>}</span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="fu">\newcommand</span>{<span class="ex">\EdgeL</span>}[3]</span>
+<span id="cb7-37"><a href="#cb7-37"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="fu">\draw</span>[dashed,#3] (#1) to[bend right=-45] (#2);</span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb7-40"><a href="#cb7-40"></a>}</span>
+<span id="cb7-41"><a href="#cb7-41"></a><span class="fu">\newcommand</span>{<span class="ex">\Arrow</span>}[3]</span>
+<span id="cb7-42"><a href="#cb7-42"></a>{ <span class="kw">\begin</span>{<span class="ex">pgfonlayer</span>}{background}</span>
+<span id="cb7-43"><a href="#cb7-43"></a><span class="fu">\draw</span>[-&gt;,#3] (#1) -- +(#2);</span>
+<span id="cb7-44"><a href="#cb7-44"></a><span class="kw">\end</span>{<span class="ex">pgfonlayer</span>}</span>
+<span id="cb7-45"><a href="#cb7-45"></a>}</span>
+<span id="cb7-46"><a href="#cb7-46"></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}</span>
+<span id="cb7-47"><a href="#cb7-47"></a>  <span class="fu">\Vertex</span>{0, -1}{Z}</span>
+<span id="cb7-48"><a href="#cb7-48"></a>  <span class="fu">\Vertex</span>{-4, 0}{W}</span>
+<span id="cb7-49"><a href="#cb7-49"></a>  <span class="fu">\Vertex</span>{0, 0}{M}</span>
+<span id="cb7-50"><a href="#cb7-50"></a>  <span class="fu">\Vertex</span>{-2, 0}{A}</span>
+<span id="cb7-51"><a href="#cb7-51"></a>  <span class="fu">\Vertex</span>{2, 0}{Y}</span>
+<span id="cb7-52"><a href="#cb7-52"></a>  <span class="fu">\ArrowR</span>{W}{Z}{black}</span>
+<span id="cb7-53"><a href="#cb7-53"></a>  <span class="fu">\Arrow</span>{Z}{M}{black}</span>
+<span id="cb7-54"><a href="#cb7-54"></a>  <span class="fu">\Arrow</span>{W}{A}{black}</span>
+<span id="cb7-55"><a href="#cb7-55"></a>  <span class="fu">\Arrow</span>{A}{M}{black}</span>
+<span id="cb7-56"><a href="#cb7-56"></a>  <span class="fu">\Arrow</span>{M}{Y}{black}</span>
+<span id="cb7-57"><a href="#cb7-57"></a>  <span class="fu">\Arrow</span>{A}{Z}{black}</span>
+<span id="cb7-58"><a href="#cb7-58"></a>  <span class="fu">\Arrow</span>{Z}{Y}{black}</span>
+<span id="cb7-59"><a href="#cb7-59"></a>  <span class="fu">\ArrowL</span>{W}{Y}{black}</span>
+<span id="cb7-60"><a href="#cb7-60"></a>  <span class="fu">\ArrowL</span>{A}{Y}{black}</span>
+<span id="cb7-61"><a href="#cb7-61"></a>  <span class="fu">\ArrowL</span>{W}{M}{black}</span>
+<span id="cb7-62"><a href="#cb7-62"></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="estimation_walkthrough_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption>Directed acyclic graph under intermediate confounders of the mediator-outcome relation affected by treatment</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Recall that the interventional (in)direct effects are defined via the decomposition:</p>
+<p><span class="math display">\[
+  \E[Y_{1,G_1} - Y_{0,G_0}] =
+    \underbrace{\E[Y_{\color{red}{1},\color{blue}{G_1}} -
+    Y_{\color{red}{1},\color{blue}{G_0}}]}_{\text{interventional indirect effect}} +
+    \underbrace{\E[Y_{\color{blue}{1},\color{red}{G_0}} -
+    Y_{\color{blue}{0},\color{red}{G_0}}]}_{\text{interventional direct effect}}
+\]</span></p>
+<ul>
+<li>In our data example, we’ll consider the eating of snacks as a potential intermediate confounder, since one might reasonably hypothesize that participation on a sports team might subsequently affect snacking, which then could affect mediators like the amount of exercises and overweight status.<br>
+</li>
+<li>We can easily estimate the interventional direct and indirect effects by setting <code>effect = "RI"</code> and specifying the intermediate confounders in the <code>moc</code> argument.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># compute one-step estimates of the interventional effects</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">crumble</span>(</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">data =</span> weight_behavior,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">trt =</span> <span class="st">"sports_2"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="at">outcome =</span> <span class="st">"bmi"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="at">covar =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"sex_F"</span>, <span class="st">"tvhours"</span>),</span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="at">mediators =</span> <span class="st">"exercises"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="at">moc =</span> <span class="st">"snack_2"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="at">d0 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="at">d1 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="at">effect =</span> <span class="st">"RI"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="at">learners =</span> ensemble,</span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="at">nn_module =</span> mlp,</span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="at">control =</span> <span class="fu">crumble_control</span>(<span class="at">crossfit_folds =</span> <span class="dv">1</span>L, <span class="at">epochs =</span> <span class="dv">10</span>L, <span class="at">learning_rate =</span> <span class="fl">0.01</span>)</span>
+<span id="cb8-15"><a href="#cb8-15"></a>)</span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co"># ✔ Permuting Z-prime variables... 1/1 tasks [1.3s]</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co"># ✔ Fitting outcome regressions... 1/1 folds [7.1s]</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co"># ✔ Computing alpha r density ratios... 1/1 folds [13.3s]</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co"># ══ Results `crumble()` ════════════════════════════════════════════════════════════════</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co"># ── Randomized Direct Effect</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#       Estimate: -1.12</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#     Std. error: 0.43</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="co"># 95% Conf. int.: -1.97, -0.27</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="co">#</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a><span class="co"># ── Randomized Indirect Effect</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a><span class="co">#       Estimate: 0</span></span>
+<span id="cb8-29"><a href="#cb8-29"></a><span class="co">#     Std. error: 0.03</span></span>
+<span id="cb8-30"><a href="#cb8-30"></a><span class="co"># 95% Conf. int.: -0.05, 0.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+<!-- -->
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codex\.nimahejazi\.org\/causal_mediation_workshops\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../chapters/estimation_natural_interv.html" class="pagination-link" aria-label="Construction of G-computation and weighted estimators: The case of the NDE">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Construction of G-computation and weighted estimators: The case of the NDE</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu"># `R` packages for estimation of the causal (in)direct effects</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="in">```{r}</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#| label: load-renv</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#| echo: false</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#| message: false</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>renv<span class="sc">::</span><span class="fu">autoload</span>()</span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="fu">library</span>(here)</span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="in">```</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a>We'll now turn to working through a few examples of estimating the natural and</span>
+<span id="cb9-15"><a href="#cb9-15"></a>interventional direct and indirect effects. We will be using the [<span class="in">`crumble`</span> <span class="in">`R`</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>package](https://cran.r-project.org/web/packages/crumble/index.html), which</span>
+<span id="cb9-17"><a href="#cb9-17"></a>provides a unified framework for estimating many of the common mediation</span>
+<span id="cb9-18"><a href="#cb9-18"></a>estimands, and supports high-dimensional exposures, mediators, and</span>
+<span id="cb9-19"><a href="#cb9-19"></a>mediator-outcome confounders. However, many software implementations exist in</span>
+<span id="cb9-20"><a href="#cb9-20"></a>the <span class="in">`R`</span> ecosystem for performing mediation analyses; notably, <span class="in">`crumble`</span> was</span>
+<span id="cb9-21"><a href="#cb9-21"></a>heavily inspired by <span class="co">[</span><span class="ot">`medoutcon`</span><span class="co">](https://github.com/nhejazi/medoutcon)</span>,</span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co">[</span><span class="ot">`HDmediation`</span><span class="co">](https://github.com/nt-williams/HDmediation)</span>, and</span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="co">[</span><span class="ot">`lcm`</span><span class="co">](https://github.com/nt-williams/lcm)</span>.</span>
+<span id="cb9-24"><a href="#cb9-24"></a></span>
+<span id="cb9-25"><a href="#cb9-25"></a>As our running example, we'll use a simple data set from an observational study</span>
+<span id="cb9-26"><a href="#cb9-26"></a>of the relationship between BMI and kids' behavior, freely distributed with the</span>
+<span id="cb9-27"><a href="#cb9-27"></a><span class="co">[</span><span class="ot">`mma` `R` package on CRAN</span><span class="co">](https://CRAN.R-project.org/package=mma)</span>. First,</span>
+<span id="cb9-28"><a href="#cb9-28"></a>let's load the packages we'll be using and set a seed for reproducibility;</span>
+<span id="cb9-29"><a href="#cb9-29"></a>then, load this data set and take a quick look.</span>
+<span id="cb9-30"><a href="#cb9-30"></a></span>
+<span id="cb9-33"><a href="#cb9-33"></a><span class="in">```{r}</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="co">#| label: setup</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a><span class="fu">library</span>(crumble)</span>
+<span id="cb9-37"><a href="#cb9-37"></a><span class="fu">library</span>(mlr3extralearners)</span>
+<span id="cb9-38"><a href="#cb9-38"></a><span class="fu">library</span>(fastDummies)</span>
+<span id="cb9-39"><a href="#cb9-39"></a><span class="fu">library</span>(torch)</span>
+<span id="cb9-40"><a href="#cb9-40"></a></span>
+<span id="cb9-41"><a href="#cb9-41"></a><span class="fu">set.seed</span>(<span class="dv">4235243</span>)</span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="fu">torch_manual_seed</span>(<span class="dv">657</span>)</span>
+<span id="cb9-43"><a href="#cb9-43"></a></span>
+<span id="cb9-44"><a href="#cb9-44"></a><span class="co"># load and examine data</span></span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="fu">data</span>(weight_behavior, <span class="at">package =</span> <span class="st">"mma"</span>)</span>
+<span id="cb9-46"><a href="#cb9-46"></a></span>
+<span id="cb9-47"><a href="#cb9-47"></a><span class="co"># drop missing values</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a>weight_behavior <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(weight_behavior)</span>
+<span id="cb9-49"><a href="#cb9-49"></a></span>
+<span id="cb9-50"><a href="#cb9-50"></a><span class="co"># dummy code (aka one-hot-encode) factors</span></span>
+<span id="cb9-51"><a href="#cb9-51"></a>weight_behavior <span class="ot">&lt;-</span> <span class="fu">dummy_cols</span>(</span>
+<span id="cb9-52"><a href="#cb9-52"></a>  weight_behavior, <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"sports"</span>, <span class="st">"snack"</span>),</span>
+<span id="cb9-53"><a href="#cb9-53"></a>  <span class="at">remove_selected_columns =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-54"><a href="#cb9-54"></a>  <span class="at">remove_first_dummy =</span> <span class="cn">TRUE</span></span>
+<span id="cb9-55"><a href="#cb9-55"></a>)</span>
+<span id="cb9-56"><a href="#cb9-56"></a></span>
+<span id="cb9-57"><a href="#cb9-57"></a><span class="fu">head</span>(weight_behavior)</span>
+<span id="cb9-58"><a href="#cb9-58"></a><span class="in">```</span></span>
+<span id="cb9-59"><a href="#cb9-59"></a></span>
+<span id="cb9-60"><a href="#cb9-60"></a>The documentation for the data set describes it as a "database obtained from</span>
+<span id="cb9-61"><a href="#cb9-61"></a>the Louisiana State University Health Sciences Center, New Orleans, by Dr.</span>
+<span id="cb9-62"><a href="#cb9-62"></a>Richard Scribner. He explored the relationship between BMI and kids' behavior</span>
+<span id="cb9-63"><a href="#cb9-63"></a>through a survey at children, teachers and parents in Grenada in 2014. This</span>
+<span id="cb9-64"><a href="#cb9-64"></a>data set includes 691 observations and 15 variables." Note that the data set</span>
+<span id="cb9-65"><a href="#cb9-65"></a>contained several observations with missing values, which we removed above to</span>
+<span id="cb9-66"><a href="#cb9-66"></a>simplify the demonstration of our analytic methods. In practice, we recommend</span>
+<span id="cb9-67"><a href="#cb9-67"></a>instead using appropriate corrections (e.g., imputation, inverse weighting) to</span>
+<span id="cb9-68"><a href="#cb9-68"></a>fully take advantage of the observed data.</span>
+<span id="cb9-69"><a href="#cb9-69"></a></span>
+<span id="cb9-70"><a href="#cb9-70"></a>Following the motivation of the original study, we focus on the causal effects</span>
+<span id="cb9-71"><a href="#cb9-71"></a>of participating in a sports team (<span class="in">`sports_2`</span>) on the BMI of children (<span class="in">`bmi`</span>),</span>
+<span id="cb9-72"><a href="#cb9-72"></a>taking into consideration several mediators (<span class="in">`snack_2`</span>, <span class="in">`exercises`</span>); `c("age",</span>
+<span id="cb9-73"><a href="#cb9-73"></a>"sex_F", "tvhours")` are taken to be potential baseline confounders.</span>
+<span id="cb9-74"><a href="#cb9-74"></a></span>
+<span id="cb9-75"><a href="#cb9-75"></a><span class="fu">## `crumble`: Flexible and general mediation analysis</span></span>
+<span id="cb9-76"><a href="#cb9-76"></a></span>
+<span id="cb9-77"><a href="#cb9-77"></a><span class="ss">- </span><span class="in">`crumble`</span> implements a one-step estimator of the natural, interventional, and</span>
+<span id="cb9-78"><a href="#cb9-78"></a>  organic (in)direct effect, as well as path-specific effects using recanting</span>
+<span id="cb9-79"><a href="#cb9-79"></a>  twins.</span>
+<span id="cb9-80"><a href="#cb9-80"></a><span class="ss">- </span>The estimator is capable of accommodating flexible modeling strategies (e.g.,</span>
+<span id="cb9-81"><a href="#cb9-81"></a>  ensemble machine learning) for the initial estimation of nuisance parameters.</span>
+<span id="cb9-82"><a href="#cb9-82"></a><span class="ss">- </span>To this end, <span class="in">`crumble`</span> integrates with the <span class="co">[</span><span class="ot">`mlr3superlearner` R package</span><span class="co">](https://cran.r-project.org/package=mlr3superlearner)</span>.</span>
+<span id="cb9-83"><a href="#cb9-83"></a><span class="ss">- </span>The estimator uses cross-fitting of nuisance parameters. </span>
+<span id="cb9-84"><a href="#cb9-84"></a></span>
+<span id="cb9-85"><a href="#cb9-85"></a>The data on a single observational unit can be represented $O = (W, A, M, Y)$,</span>
+<span id="cb9-86"><a href="#cb9-86"></a>with the data pooled across all participants denoted $O_1, \ldots, O_n$, for a</span>
+<span id="cb9-87"><a href="#cb9-87"></a>of $n$ i.i.d. observations of $O$. Recall the DAG [from an earlier</span>
+<span id="cb9-88"><a href="#cb9-88"></a>chapter](#estimands), which represents the data-generating process:</span>
+<span id="cb9-89"><a href="#cb9-89"></a></span>
+<span id="cb9-92"><a href="#cb9-92"></a><span class="in">```{tikz}</span></span>
+<span id="cb9-93"><a href="#cb9-93"></a><span class="in">#| fig-cap: Directed acyclic graph under *no intermediate confounders* of the mediator-outcome relation affected by treatment</span></span>
+<span id="cb9-94"><a href="#cb9-94"></a><span class="in">\dimendef\prevdepth=0</span></span>
+<span id="cb9-95"><a href="#cb9-95"></a><span class="in">\pgfdeclarelayer{background}</span></span>
+<span id="cb9-96"><a href="#cb9-96"></a><span class="in">\pgfsetlayers{background,main}</span></span>
+<span id="cb9-97"><a href="#cb9-97"></a><span class="in">\usetikzlibrary{arrows,positioning}</span></span>
+<span id="cb9-98"><a href="#cb9-98"></a><span class="in">\tikzset{</span></span>
+<span id="cb9-99"><a href="#cb9-99"></a><span class="in">&gt;=stealth',</span></span>
+<span id="cb9-100"><a href="#cb9-100"></a><span class="in">punkt/.style={</span></span>
+<span id="cb9-101"><a href="#cb9-101"></a><span class="in">rectangle,</span></span>
+<span id="cb9-102"><a href="#cb9-102"></a><span class="in">rounded corners,</span></span>
+<span id="cb9-103"><a href="#cb9-103"></a><span class="in">draw=black, very thick,</span></span>
+<span id="cb9-104"><a href="#cb9-104"></a><span class="in">text width=6.5em,</span></span>
+<span id="cb9-105"><a href="#cb9-105"></a><span class="in">minimum height=2em,</span></span>
+<span id="cb9-106"><a href="#cb9-106"></a><span class="in">text centered},</span></span>
+<span id="cb9-107"><a href="#cb9-107"></a><span class="in">pil/.style={</span></span>
+<span id="cb9-108"><a href="#cb9-108"></a><span class="in">-&gt;,</span></span>
+<span id="cb9-109"><a href="#cb9-109"></a><span class="in">thick,</span></span>
+<span id="cb9-110"><a href="#cb9-110"></a><span class="in">shorten &lt;=2pt,</span></span>
+<span id="cb9-111"><a href="#cb9-111"></a><span class="in">shorten &gt;=2pt,}</span></span>
+<span id="cb9-112"><a href="#cb9-112"></a><span class="in">}</span></span>
+<span id="cb9-113"><a href="#cb9-113"></a><span class="in">\newcommand{\Vertex}[2]</span></span>
+<span id="cb9-114"><a href="#cb9-114"></a><span class="in">{\node[minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {$#2$};</span></span>
+<span id="cb9-115"><a href="#cb9-115"></a><span class="in">}</span></span>
+<span id="cb9-116"><a href="#cb9-116"></a><span class="in">\newcommand{\VertexR}[2]</span></span>
+<span id="cb9-117"><a href="#cb9-117"></a><span class="in">{\node[rectangle, draw, minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {$#2$};</span></span>
+<span id="cb9-118"><a href="#cb9-118"></a><span class="in">}</span></span>
+<span id="cb9-119"><a href="#cb9-119"></a><span class="in">\newcommand{\ArrowR}[3]</span></span>
+<span id="cb9-120"><a href="#cb9-120"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-121"><a href="#cb9-121"></a><span class="in">\draw[-&gt;,#3] (#1) to[bend right=30] (#2);</span></span>
+<span id="cb9-122"><a href="#cb9-122"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-123"><a href="#cb9-123"></a><span class="in">}</span></span>
+<span id="cb9-124"><a href="#cb9-124"></a><span class="in">\newcommand{\ArrowL}[3]</span></span>
+<span id="cb9-125"><a href="#cb9-125"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-126"><a href="#cb9-126"></a><span class="in">\draw[-&gt;,#3] (#1) to[bend left=45] (#2);</span></span>
+<span id="cb9-127"><a href="#cb9-127"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-128"><a href="#cb9-128"></a><span class="in">}</span></span>
+<span id="cb9-129"><a href="#cb9-129"></a><span class="in">\newcommand{\EdgeL}[3]</span></span>
+<span id="cb9-130"><a href="#cb9-130"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-131"><a href="#cb9-131"></a><span class="in">\draw[dashed,#3] (#1) to[bend right=-45] (#2);</span></span>
+<span id="cb9-132"><a href="#cb9-132"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-133"><a href="#cb9-133"></a><span class="in">}</span></span>
+<span id="cb9-134"><a href="#cb9-134"></a><span class="in">\newcommand{\Arrow}[3]</span></span>
+<span id="cb9-135"><a href="#cb9-135"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-136"><a href="#cb9-136"></a><span class="in">\draw[-&gt;,#3] (#1) -- +(#2);</span></span>
+<span id="cb9-137"><a href="#cb9-137"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-138"><a href="#cb9-138"></a><span class="in">}</span></span>
+<span id="cb9-139"><a href="#cb9-139"></a><span class="in">\begin{tikzpicture}</span></span>
+<span id="cb9-140"><a href="#cb9-140"></a><span class="in">  \Vertex{-4, 0}{W}</span></span>
+<span id="cb9-141"><a href="#cb9-141"></a><span class="in">  \Vertex{0, 0}{M}</span></span>
+<span id="cb9-142"><a href="#cb9-142"></a><span class="in">  \Vertex{-2, 0}{A}</span></span>
+<span id="cb9-143"><a href="#cb9-143"></a><span class="in">  \Vertex{2, 0}{Y}</span></span>
+<span id="cb9-144"><a href="#cb9-144"></a><span class="in">  \Arrow{W}{A}{black}</span></span>
+<span id="cb9-145"><a href="#cb9-145"></a><span class="in">  \Arrow{A}{M}{black}</span></span>
+<span id="cb9-146"><a href="#cb9-146"></a><span class="in">  \Arrow{M}{Y}{black}</span></span>
+<span id="cb9-147"><a href="#cb9-147"></a><span class="in">  \ArrowL{W}{Y}{black}</span></span>
+<span id="cb9-148"><a href="#cb9-148"></a><span class="in">  \ArrowL{A}{Y}{black}</span></span>
+<span id="cb9-149"><a href="#cb9-149"></a><span class="in">  \ArrowL{W}{M}{black}</span></span>
+<span id="cb9-150"><a href="#cb9-150"></a><span class="in">\end{tikzpicture}</span></span>
+<span id="cb9-151"><a href="#cb9-151"></a><span class="in">```</span></span>
+<span id="cb9-152"><a href="#cb9-152"></a></span>
+<span id="cb9-153"><a href="#cb9-153"></a><span class="ss">- </span>In <span class="in">`crumble()`</span>, $A$ is denoted <span class="in">`trt`</span>, $Y$ is denoted <span class="in">`outcome`</span>, $M$ is denoted <span class="in">`mediators`</span>, and $W$ is denoted <span class="in">`covar`</span>.</span>
+<span id="cb9-154"><a href="#cb9-154"></a></span>
+<span id="cb9-155"><a href="#cb9-155"></a><span class="fu">## Estimating nuisance parameters</span></span>
+<span id="cb9-156"><a href="#cb9-156"></a></span>
+<span id="cb9-157"><a href="#cb9-157"></a><span class="ss">- </span>Recall that the one-step estimator can be thought of as a combination of a</span>
+<span id="cb9-158"><a href="#cb9-158"></a>  weighted estimator and a regression estimator. </span>
+<span id="cb9-159"><a href="#cb9-159"></a><span class="ss">- </span>We'd like to rely on flexible, data adaptive strategies for nuisance</span>
+<span id="cb9-160"><a href="#cb9-160"></a>  parameter estimation.</span>
+<span id="cb9-161"><a href="#cb9-161"></a><span class="ss">- </span>Doing so minimizes opportunities for model mis-specification to compromise our</span>
+<span id="cb9-162"><a href="#cb9-162"></a>  analytic conclusions.</span>
+<span id="cb9-163"><a href="#cb9-163"></a></span>
+<span id="cb9-164"><a href="#cb9-164"></a><span class="fu">### Super learning</span></span>
+<span id="cb9-165"><a href="#cb9-165"></a></span>
+<span id="cb9-166"><a href="#cb9-166"></a><span class="ss">- </span>For the regression function parts of the EIF (e.g., $\E<span class="co">[</span><span class="ot">Y\mid A,M,W</span><span class="co">]</span>$),</span>
+<span id="cb9-167"><a href="#cb9-167"></a>  <span class="in">`crumble`</span> uses the Super Learner algorithm for ensemble machine learning</span>
+<span id="cb9-168"><a href="#cb9-168"></a>  <span class="co">[</span><span class="ot">@vdl2007super</span><span class="co">]</span>, which is implemented in the [<span class="in">`mlr3superlearner`</span> R</span>
+<span id="cb9-169"><a href="#cb9-169"></a>  package](https://cran.r-project.org/package=mlr3superlearner).</span>
+<span id="cb9-170"><a href="#cb9-170"></a><span class="ss">- </span>Below, we demonstrate the construction of an ensemble learner based on a</span>
+<span id="cb9-171"><a href="#cb9-171"></a>  limited library of algorithms, including an intercept model, a main terms GLM,</span>
+<span id="cb9-172"><a href="#cb9-172"></a>  LASSO ($\ell_1$-penalized) regression, and random forest (<span class="in">`ranger`</span>).</span>
+<span id="cb9-173"><a href="#cb9-173"></a></span>
+<span id="cb9-176"><a href="#cb9-176"></a><span class="in">```{r}</span></span>
+<span id="cb9-177"><a href="#cb9-177"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb9-178"><a href="#cb9-178"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-179"><a href="#cb9-179"></a>ensemble <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb9-180"><a href="#cb9-180"></a>  <span class="st">"mean"</span>,</span>
+<span id="cb9-181"><a href="#cb9-181"></a>  <span class="st">"glm"</span>,</span>
+<span id="cb9-182"><a href="#cb9-182"></a>  <span class="st">"cv_glmnet"</span>,</span>
+<span id="cb9-183"><a href="#cb9-183"></a>  <span class="fu">list</span>(<span class="st">"ranger"</span>, <span class="at">num.trees =</span> <span class="dv">200</span>)</span>
+<span id="cb9-184"><a href="#cb9-184"></a>)</span>
+<span id="cb9-185"><a href="#cb9-185"></a><span class="in">```</span></span>
+<span id="cb9-186"><a href="#cb9-186"></a></span>
+<span id="cb9-187"><a href="#cb9-187"></a><span class="ss">- </span>Of course, there are many alternatives for learning algorithms to be included</span>
+<span id="cb9-188"><a href="#cb9-188"></a>  in such a modeling library. Feel free to explore!</span>
+<span id="cb9-189"><a href="#cb9-189"></a></span>
+<span id="cb9-190"><a href="#cb9-190"></a><span class="fu">### Riesz representers</span></span>
+<span id="cb9-191"><a href="#cb9-191"></a></span>
+<span id="cb9-192"><a href="#cb9-192"></a>In a subset of the semi-parametric and double-machine learning literature, the</span>
+<span id="cb9-193"><a href="#cb9-193"></a>weights in the EIF are sometimes referred to as _Riesz representers_. To</span>
+<span id="cb9-194"><a href="#cb9-194"></a>understand why, let's imagine that we want to estimate the total effect (i.e.,</span>
+<span id="cb9-195"><a href="#cb9-195"></a>the ATE) of a binary treatment $A$ on some outcome $Y$ accounting for</span>
+<span id="cb9-196"><a href="#cb9-196"></a>confounders $W$. Under standard identification assumptions, this effect is</span>
+<span id="cb9-197"><a href="#cb9-197"></a>identified from the observed data as</span>
+<span id="cb9-198"><a href="#cb9-198"></a></span>
+<span id="cb9-199"><a href="#cb9-199"></a>$$</span>
+<span id="cb9-200"><a href="#cb9-200"></a>\psi = \E<span class="co">[</span><span class="ot">\E[Y\mid A= 1,W] - \E[Y\mid A= 0,W]</span><span class="co">]</span>\text{.}</span>
+<span id="cb9-201"><a href="#cb9-201"></a>$$</span>
+<span id="cb9-202"><a href="#cb9-202"></a></span>
+<span id="cb9-203"><a href="#cb9-203"></a>Let's denote $Q(a,W) = \E<span class="co">[</span><span class="ot">Y\mid A=a,W</span><span class="co">]</span>$ and $m(O;Q)$ as a continuous linear</span>
+<span id="cb9-204"><a href="#cb9-204"></a>mapping of $Q(a,W)$ and the observed data. In the case of the total effect,</span>
+<span id="cb9-205"><a href="#cb9-205"></a>$m(O;Q) = Q(1,W) - Q(0,W)$. We can then re-write the total effect as</span>
+<span id="cb9-206"><a href="#cb9-206"></a></span>
+<span id="cb9-207"><a href="#cb9-207"></a>$$</span>
+<span id="cb9-208"><a href="#cb9-208"></a>\E<span class="co">[</span><span class="ot">m(O;Q)</span><span class="co">]</span>\text{.}</span>
+<span id="cb9-209"><a href="#cb9-209"></a>$$</span>
+<span id="cb9-210"><a href="#cb9-210"></a></span>
+<span id="cb9-211"><a href="#cb9-211"></a>Now, consider that the total effect can equivalently be identified as</span>
+<span id="cb9-212"><a href="#cb9-212"></a></span>
+<span id="cb9-213"><a href="#cb9-213"></a>$$</span>
+<span id="cb9-214"><a href="#cb9-214"></a>\E\bigg[\bigg<span class="sc">\{</span>\frac{\I(A=1)}{\P(A=1 \mid W)} - \frac{\I(A=0)}{1 - \P(A=1 \mid</span>
+<span id="cb9-215"><a href="#cb9-215"></a>W)}\bigg<span class="sc">\}</span>Y \bigg]\text{.}</span>
+<span id="cb9-216"><a href="#cb9-216"></a>$$</span>
+<span id="cb9-217"><a href="#cb9-217"></a></span>
+<span id="cb9-218"><a href="#cb9-218"></a>Let's denote $\frac{\I(A=1)}{\P(A=1 \mid W)} - \frac{\I(A=0)}{1 - \P(A=1 \mid</span>
+<span id="cb9-219"><a href="#cb9-219"></a>W)}$ as $\alpha_0(W)$. Then, </span>
+<span id="cb9-220"><a href="#cb9-220"></a></span>
+<span id="cb9-221"><a href="#cb9-221"></a>$$</span>
+<span id="cb9-222"><a href="#cb9-222"></a>\E<span class="co">[</span><span class="ot">m(O;Q)</span><span class="co">]</span> = \E<span class="co">[</span><span class="ot">\alpha_0(W) \cdot Y</span><span class="co">]</span>\text{.}</span>
+<span id="cb9-223"><a href="#cb9-223"></a>$$</span>
+<span id="cb9-224"><a href="#cb9-224"></a></span>
+<span id="cb9-225"><a href="#cb9-225"></a>According to the Riesz representation theorem, if $m(O;Q)$ is a continuous</span>
+<span id="cb9-226"><a href="#cb9-226"></a>linear functional of $Q$ (which it is), then there exists a unique function</span>
+<span id="cb9-227"><a href="#cb9-227"></a>$\alpha_0(W)$--the so-called Riesz representer--such that</span>
+<span id="cb9-228"><a href="#cb9-228"></a></span>
+<span id="cb9-229"><a href="#cb9-229"></a>$$</span>
+<span id="cb9-230"><a href="#cb9-230"></a>\E<span class="co">[</span><span class="ot">m(O;Q)</span><span class="co">]</span> = \E<span class="co">[</span><span class="ot">\alpha_0(W) \cdot Q(A,W)</span><span class="co">]</span>\text{.}</span>
+<span id="cb9-231"><a href="#cb9-231"></a>$$</span>
+<span id="cb9-232"><a href="#cb9-232"></a></span>
+<span id="cb9-233"><a href="#cb9-233"></a>Using the tower rule, we have</span>
+<span id="cb9-234"><a href="#cb9-234"></a></span>
+<span id="cb9-235"><a href="#cb9-235"></a>$$</span>
+<span id="cb9-236"><a href="#cb9-236"></a>\begin{align*}</span>
+<span id="cb9-237"><a href="#cb9-237"></a>\E<span class="co">[</span><span class="ot">m(O;Q)</span><span class="co">]</span> &amp;= \E<span class="co">[</span><span class="ot">\alpha_0(W) \cdot Y</span><span class="co">]</span><span class="sc">\\</span></span>
+<span id="cb9-238"><a href="#cb9-238"></a>&amp;= \E\big<span class="co">[</span><span class="ot">\E[\alpha_0(W) \cdot Y\mid A,W]\big</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb9-239"><a href="#cb9-239"></a>&amp;= \E\big<span class="co">[</span><span class="ot">\alpha_0(W) \cdot \E[Y\mid A,W]\big</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb9-240"><a href="#cb9-240"></a>&amp; = \E<span class="co">[</span><span class="ot">\alpha_0(W) \cdot Q(A,W)</span><span class="co">]</span>\text{.}</span>
+<span id="cb9-241"><a href="#cb9-241"></a>\end{align*}</span>
+<span id="cb9-242"><a href="#cb9-242"></a>$$</span>
+<span id="cb9-243"><a href="#cb9-243"></a></span>
+<span id="cb9-244"><a href="#cb9-244"></a>Thus, $\frac{\I(A=1)}{\P(A=1 \mid W)} - \frac{\I(A=0)}{1 - \P(A=1 \mid W)}$ is</span>
+<span id="cb9-245"><a href="#cb9-245"></a>the Riesz representer for estimating the total effect of $A$ on $Y$!</span>
+<span id="cb9-246"><a href="#cb9-246"></a></span>
+<span id="cb9-247"><a href="#cb9-247"></a>While $\alpha_0(W)$ for the total effect has a nice close-form solution that</span>
+<span id="cb9-248"><a href="#cb9-248"></a>can be easily estimated with off-the-shelf software, this isn't always the</span>
+<span id="cb9-249"><a href="#cb9-249"></a>case. With that in mind, @chernozhukov2021automatic showed that the Riesz</span>
+<span id="cb9-250"><a href="#cb9-250"></a>representer is the minimizer of the the so-called Riesz loss: </span>
+<span id="cb9-251"><a href="#cb9-251"></a></span>
+<span id="cb9-252"><a href="#cb9-252"></a>$$</span>
+<span id="cb9-253"><a href="#cb9-253"></a>\text{arg min}_\alpha \E<span class="co">[</span><span class="ot">\alpha_0(W)^2 - 2\cdot m(O;\alpha)</span><span class="co">]</span>\text{.}</span>
+<span id="cb9-254"><a href="#cb9-254"></a>$$</span>
+<span id="cb9-255"><a href="#cb9-255"></a></span>
+<span id="cb9-256"><a href="#cb9-256"></a>This means that we can directly estimate $\alpha_0(W)$ by minimizing the above</span>
+<span id="cb9-257"><a href="#cb9-257"></a>loss function! For the case of mediation analysis, the methods we proposed in</span>
+<span id="cb9-258"><a href="#cb9-258"></a>@liu2024general and implemented in <span class="in">`crumble`</span> estimate Riesz representers of the</span>
+<span id="cb9-259"><a href="#cb9-259"></a>type:</span>
+<span id="cb9-260"><a href="#cb9-260"></a></span>
+<span id="cb9-261"><a href="#cb9-261"></a>$$</span>
+<span id="cb9-262"><a href="#cb9-262"></a>\frac{\I(A_i=1)}{\hat{\P}(A_i=1 \mid W_i)}</span>
+<span id="cb9-263"><a href="#cb9-263"></a>      \frac{\hat{\P}(M_i \mid A_i=0,W)_i}{\hat{\P}(M_i \mid A_i=1,W_i)} -</span>
+<span id="cb9-264"><a href="#cb9-264"></a>      \frac{\I(A=0)}{\hat{\P}(A_i=0 \mid W_i)}\text{.}</span>
+<span id="cb9-265"><a href="#cb9-265"></a>$$</span>
+<span id="cb9-266"><a href="#cb9-266"></a></span>
+<span id="cb9-267"><a href="#cb9-267"></a><span class="in">`crumble`</span> estimates this value (and others) for mediational effects directly by</span>
+<span id="cb9-268"><a href="#cb9-268"></a>minimizing the Riesz loss with deep learning using <span class="in">`torch`</span>. **Much of this is</span>
+<span id="cb9-269"><a href="#cb9-269"></a>abstracted away from the analyst**, but we still need to specify some type of</span>
+<span id="cb9-270"><a href="#cb9-270"></a>deep-learning architecture to use <span class="in">`crumble`</span>. Here's an example of a simple</span>
+<span id="cb9-271"><a href="#cb9-271"></a>multilayer perceptron (MLP) with two hidden layers, each with 10 units, and a</span>
+<span id="cb9-272"><a href="#cb9-272"></a>dropout rate of 0.1 which we create using the <span class="in">`sequential_module()`</span> function</span>
+<span id="cb9-273"><a href="#cb9-273"></a>from <span class="in">`crumble`</span>.</span>
+<span id="cb9-274"><a href="#cb9-274"></a></span>
+<span id="cb9-277"><a href="#cb9-277"></a><span class="in">```{r}</span></span>
+<span id="cb9-278"><a href="#cb9-278"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb9-279"><a href="#cb9-279"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-280"><a href="#cb9-280"></a>mlp <span class="ot">&lt;-</span> <span class="fu">sequential_module</span>(<span class="at">layers =</span> <span class="dv">2</span>, <span class="at">hidden =</span> <span class="dv">10</span>, <span class="at">dropout =</span> <span class="fl">0.1</span>)</span>
+<span id="cb9-281"><a href="#cb9-281"></a><span class="in">```</span></span>
+<span id="cb9-282"><a href="#cb9-282"></a></span>
+<span id="cb9-283"><a href="#cb9-283"></a><span class="fu">## Efficient estimation of the natural (in)direct effects</span></span>
+<span id="cb9-284"><a href="#cb9-284"></a></span>
+<span id="cb9-285"><a href="#cb9-285"></a>To start, we will consider estimation of the *natural* direct and indirect</span>
+<span id="cb9-286"><a href="#cb9-286"></a>effects, which, we recall, are defined as follows</span>
+<span id="cb9-287"><a href="#cb9-287"></a></span>
+<span id="cb9-288"><a href="#cb9-288"></a>$$</span>
+<span id="cb9-289"><a href="#cb9-289"></a>  \E<span class="co">[</span><span class="ot">Y_{1,M_1} - Y_{0,M_0}</span><span class="co">]</span> =</span>
+<span id="cb9-290"><a href="#cb9-290"></a>    \underbrace{\E[Y_{\color{red}{1},\color{blue}{M_1}} -</span>
+<span id="cb9-291"><a href="#cb9-291"></a>    Y_{\color{red}{1},\color{blue}{M_0}}]}_{\text{natural indirect effect}} +</span>
+<span id="cb9-292"><a href="#cb9-292"></a>    \underbrace{\E[Y_{\color{blue}{1},\color{red}{M_0}} -</span>
+<span id="cb9-293"><a href="#cb9-293"></a>    Y_{\color{blue}{0},\color{red}{M_0}}]}_{\text{natural direct effect}}.</span>
+<span id="cb9-294"><a href="#cb9-294"></a>$$</span>
+<span id="cb9-295"><a href="#cb9-295"></a></span>
+<span id="cb9-296"><a href="#cb9-296"></a>Let's use the <span class="in">`crumble()`</span> function to estimate the natural direct and indirect effect. </span>
+<span id="cb9-297"><a href="#cb9-297"></a></span>
+<span id="cb9-298"><a href="#cb9-298"></a><span class="ss">- </span>We'll use the ensemble of the intercept model, a main terms GLM, LASSO</span>
+<span id="cb9-299"><a href="#cb9-299"></a>  ($\ell_1$-penalized) regression, and random forest we defined above</span>
+<span id="cb9-300"><a href="#cb9-300"></a>  (<span class="in">`ensemble`</span>) for the regression parameters</span>
+<span id="cb9-301"><a href="#cb9-301"></a><span class="ss">- </span>We'll use the multilayer perceptron we defined above (<span class="in">`mlp`</span>) to estimate the</span>
+<span id="cb9-302"><a href="#cb9-302"></a>  Riesz representers.</span>
+<span id="cb9-303"><a href="#cb9-303"></a><span class="ss">- </span>To indicate we want to estimate the natural (in)direct effects, we set</span>
+<span id="cb9-304"><a href="#cb9-304"></a>  <span class="in">`effect = "N"`</span>. </span>
+<span id="cb9-305"><a href="#cb9-305"></a><span class="ss">- </span><span class="in">`crumble`</span> was designed to also work with continuous exposures. Because of</span>
+<span id="cb9-306"><a href="#cb9-306"></a>  this, we need to specify the treatment regimes to create the contrasts for the</span>
+<span id="cb9-307"><a href="#cb9-307"></a>  (in)direct effects. </span>
+<span id="cb9-308"><a href="#cb9-308"></a><span class="ss">  - </span><span class="in">`d0`</span> and <span class="in">`d1`</span> are functions that return the treatment assignment under the</span>
+<span id="cb9-309"><a href="#cb9-309"></a>    two regimes. In our case, we want to estimate the effect of participating in</span>
+<span id="cb9-310"><a href="#cb9-310"></a>    a sports team, so we set <span class="in">`d0`</span> to always return 1 (i.e., no participation)</span>
+<span id="cb9-311"><a href="#cb9-311"></a>    and <span class="in">`d1`</span> to always return 0 (i.e., participation).</span>
+<span id="cb9-312"><a href="#cb9-312"></a><span class="ss">  - </span>Want to learn more about specifying causal effects using these <span class="in">`d`</span></span>
+<span id="cb9-313"><a href="#cb9-313"></a>    functions? Check out the workshop, _Beyond the ATE_ happening after this one!</span>
+<span id="cb9-314"><a href="#cb9-314"></a></span>
+<span id="cb9-317"><a href="#cb9-317"></a><span class="in">```{r}</span></span>
+<span id="cb9-318"><a href="#cb9-318"></a><span class="co">#| label: natural-os</span></span>
+<span id="cb9-319"><a href="#cb9-319"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb9-320"><a href="#cb9-320"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-321"><a href="#cb9-321"></a></span>
+<span id="cb9-322"><a href="#cb9-322"></a><span class="co"># compute one-step estimates of the natural effects</span></span>
+<span id="cb9-323"><a href="#cb9-323"></a><span class="fu">crumble</span>(</span>
+<span id="cb9-324"><a href="#cb9-324"></a>  <span class="at">data =</span> weight_behavior,</span>
+<span id="cb9-325"><a href="#cb9-325"></a>  <span class="at">trt =</span> <span class="st">"sports_2"</span>,</span>
+<span id="cb9-326"><a href="#cb9-326"></a>  <span class="at">outcome =</span> <span class="st">"bmi"</span>,</span>
+<span id="cb9-327"><a href="#cb9-327"></a>  <span class="at">covar =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"sex_F"</span>, <span class="st">"tvhours"</span>),</span>
+<span id="cb9-328"><a href="#cb9-328"></a>  <span class="at">mediators =</span> <span class="fu">c</span>(<span class="st">"snack_2"</span>, <span class="st">"exercises"</span>),</span>
+<span id="cb9-329"><a href="#cb9-329"></a>  <span class="at">d0 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb9-330"><a href="#cb9-330"></a>  <span class="at">d1 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb9-331"><a href="#cb9-331"></a>  <span class="at">effect =</span> <span class="st">"N"</span>,</span>
+<span id="cb9-332"><a href="#cb9-332"></a>  <span class="at">learners =</span> ensemble,</span>
+<span id="cb9-333"><a href="#cb9-333"></a>  <span class="at">nn_module =</span> mlp,</span>
+<span id="cb9-334"><a href="#cb9-334"></a>  <span class="at">control =</span> <span class="fu">crumble_control</span>(<span class="at">crossfit_folds =</span> <span class="dv">1</span>L, <span class="at">epochs =</span> <span class="dv">10</span>L, <span class="at">learning_rate =</span> <span class="fl">0.01</span>)</span>
+<span id="cb9-335"><a href="#cb9-335"></a>)</span>
+<span id="cb9-336"><a href="#cb9-336"></a><span class="co"># ✔ Fitting outcome regressions... 1/1 folds [5.4s]</span></span>
+<span id="cb9-337"><a href="#cb9-337"></a><span class="co"># ✔ Computing alpha n density ratios... 1/1 folds [7s]</span></span>
+<span id="cb9-338"><a href="#cb9-338"></a><span class="co">#</span></span>
+<span id="cb9-339"><a href="#cb9-339"></a><span class="co"># ══ Results `crumble()` ════════════════════════════════════════════════════════════════</span></span>
+<span id="cb9-340"><a href="#cb9-340"></a><span class="co">#</span></span>
+<span id="cb9-341"><a href="#cb9-341"></a><span class="co"># ── Direct Effect</span></span>
+<span id="cb9-342"><a href="#cb9-342"></a><span class="co">#       Estimate: -1.08</span></span>
+<span id="cb9-343"><a href="#cb9-343"></a><span class="co">#     Std. error: 0.26</span></span>
+<span id="cb9-344"><a href="#cb9-344"></a><span class="co"># 95% Conf. int.: -1.6, -0.57</span></span>
+<span id="cb9-345"><a href="#cb9-345"></a><span class="co">#</span></span>
+<span id="cb9-346"><a href="#cb9-346"></a><span class="co"># ── Indirect Effect</span></span>
+<span id="cb9-347"><a href="#cb9-347"></a><span class="co">#       Estimate: 0.06</span></span>
+<span id="cb9-348"><a href="#cb9-348"></a><span class="co">#     Std. error: 0.05</span></span>
+<span id="cb9-349"><a href="#cb9-349"></a><span class="co"># 95% Conf. int.: -0.05, 0.16</span></span>
+<span id="cb9-350"><a href="#cb9-350"></a><span class="co">#</span></span>
+<span id="cb9-351"><a href="#cb9-351"></a><span class="co"># ── Average Treatment Effect</span></span>
+<span id="cb9-352"><a href="#cb9-352"></a><span class="co">#       Estimate: -1.03</span></span>
+<span id="cb9-353"><a href="#cb9-353"></a><span class="co">#     Std. error: 0.3</span></span>
+<span id="cb9-354"><a href="#cb9-354"></a><span class="co"># 95% Conf. int.: -1.61, -0.44</span></span>
+<span id="cb9-355"><a href="#cb9-355"></a><span class="in">```</span></span>
+<span id="cb9-356"><a href="#cb9-356"></a></span>
+<span id="cb9-357"><a href="#cb9-357"></a></span>
+<span id="cb9-358"><a href="#cb9-358"></a><span class="fu">## Efficient estimation of the interventional (in)direct effects</span></span>
+<span id="cb9-359"><a href="#cb9-359"></a></span>
+<span id="cb9-360"><a href="#cb9-360"></a>Since our knowledge of the system under study is incomplete, we might worry</span>
+<span id="cb9-361"><a href="#cb9-361"></a>that one (or more) of the measured variables are not mediators, but, in fact,</span>
+<span id="cb9-362"><a href="#cb9-362"></a>intermediate confounders affected by treatment. While the natural (in)direct</span>
+<span id="cb9-363"><a href="#cb9-363"></a>effects are not identified in this setting, their interventional (in)direct</span>
+<span id="cb9-364"><a href="#cb9-364"></a>counterparts are, as we saw in an earlier section. Recall that both types of</span>
+<span id="cb9-365"><a href="#cb9-365"></a>effects are defined by static interventions on the treatment. The</span>
+<span id="cb9-366"><a href="#cb9-366"></a>interventional effects are distinguished by their use of a stochastic</span>
+<span id="cb9-367"><a href="#cb9-367"></a>intervention on the mediator to aid in their identification.</span>
+<span id="cb9-368"><a href="#cb9-368"></a></span>
+<span id="cb9-371"><a href="#cb9-371"></a><span class="in">```{tikz}</span></span>
+<span id="cb9-372"><a href="#cb9-372"></a><span class="in">#| fig-cap: Directed acyclic graph under intermediate confounders of the mediator-outcome relation affected by treatment</span></span>
+<span id="cb9-373"><a href="#cb9-373"></a><span class="in">\dimendef\prevdepth=0</span></span>
+<span id="cb9-374"><a href="#cb9-374"></a><span class="in">\pgfdeclarelayer{background}</span></span>
+<span id="cb9-375"><a href="#cb9-375"></a><span class="in">\pgfsetlayers{background,main}</span></span>
+<span id="cb9-376"><a href="#cb9-376"></a><span class="in">\usetikzlibrary{arrows,positioning}</span></span>
+<span id="cb9-377"><a href="#cb9-377"></a><span class="in">\tikzset{</span></span>
+<span id="cb9-378"><a href="#cb9-378"></a><span class="in">&gt;=stealth',</span></span>
+<span id="cb9-379"><a href="#cb9-379"></a><span class="in">punkt/.style={</span></span>
+<span id="cb9-380"><a href="#cb9-380"></a><span class="in">rectangle,</span></span>
+<span id="cb9-381"><a href="#cb9-381"></a><span class="in">rounded corners,</span></span>
+<span id="cb9-382"><a href="#cb9-382"></a><span class="in">draw=black, very thick,</span></span>
+<span id="cb9-383"><a href="#cb9-383"></a><span class="in">text width=6.5em,</span></span>
+<span id="cb9-384"><a href="#cb9-384"></a><span class="in">minimum height=2em,</span></span>
+<span id="cb9-385"><a href="#cb9-385"></a><span class="in">text centered},</span></span>
+<span id="cb9-386"><a href="#cb9-386"></a><span class="in">pil/.style={</span></span>
+<span id="cb9-387"><a href="#cb9-387"></a><span class="in">-&gt;,</span></span>
+<span id="cb9-388"><a href="#cb9-388"></a><span class="in">thick,</span></span>
+<span id="cb9-389"><a href="#cb9-389"></a><span class="in">shorten &lt;=2pt,</span></span>
+<span id="cb9-390"><a href="#cb9-390"></a><span class="in">shorten &gt;=2pt,}</span></span>
+<span id="cb9-391"><a href="#cb9-391"></a><span class="in">}</span></span>
+<span id="cb9-392"><a href="#cb9-392"></a><span class="in">\newcommand{\Vertex}[2]</span></span>
+<span id="cb9-393"><a href="#cb9-393"></a><span class="in">{\node[minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {$#2$};</span></span>
+<span id="cb9-394"><a href="#cb9-394"></a><span class="in">}</span></span>
+<span id="cb9-395"><a href="#cb9-395"></a><span class="in">\newcommand{\VertexR}[2]</span></span>
+<span id="cb9-396"><a href="#cb9-396"></a><span class="in">{\node[rectangle, draw, minimum width=0.6cm,inner sep=0.05cm] (#2) at (#1) {$#2$};</span></span>
+<span id="cb9-397"><a href="#cb9-397"></a><span class="in">}</span></span>
+<span id="cb9-398"><a href="#cb9-398"></a><span class="in">\newcommand{\ArrowR}[3]</span></span>
+<span id="cb9-399"><a href="#cb9-399"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-400"><a href="#cb9-400"></a><span class="in">\draw[-&gt;,#3] (#1) to[bend right=30] (#2);</span></span>
+<span id="cb9-401"><a href="#cb9-401"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-402"><a href="#cb9-402"></a><span class="in">}</span></span>
+<span id="cb9-403"><a href="#cb9-403"></a><span class="in">\newcommand{\ArrowL}[3]</span></span>
+<span id="cb9-404"><a href="#cb9-404"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-405"><a href="#cb9-405"></a><span class="in">\draw[-&gt;,#3] (#1) to[bend left=45] (#2);</span></span>
+<span id="cb9-406"><a href="#cb9-406"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-407"><a href="#cb9-407"></a><span class="in">}</span></span>
+<span id="cb9-408"><a href="#cb9-408"></a><span class="in">\newcommand{\EdgeL}[3]</span></span>
+<span id="cb9-409"><a href="#cb9-409"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-410"><a href="#cb9-410"></a><span class="in">\draw[dashed,#3] (#1) to[bend right=-45] (#2);</span></span>
+<span id="cb9-411"><a href="#cb9-411"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-412"><a href="#cb9-412"></a><span class="in">}</span></span>
+<span id="cb9-413"><a href="#cb9-413"></a><span class="in">\newcommand{\Arrow}[3]</span></span>
+<span id="cb9-414"><a href="#cb9-414"></a><span class="in">{ \begin{pgfonlayer}{background}</span></span>
+<span id="cb9-415"><a href="#cb9-415"></a><span class="in">\draw[-&gt;,#3] (#1) -- +(#2);</span></span>
+<span id="cb9-416"><a href="#cb9-416"></a><span class="in">\end{pgfonlayer}</span></span>
+<span id="cb9-417"><a href="#cb9-417"></a><span class="in">}</span></span>
+<span id="cb9-418"><a href="#cb9-418"></a><span class="in">\begin{tikzpicture}</span></span>
+<span id="cb9-419"><a href="#cb9-419"></a><span class="in">  \Vertex{0, -1}{Z}</span></span>
+<span id="cb9-420"><a href="#cb9-420"></a><span class="in">  \Vertex{-4, 0}{W}</span></span>
+<span id="cb9-421"><a href="#cb9-421"></a><span class="in">  \Vertex{0, 0}{M}</span></span>
+<span id="cb9-422"><a href="#cb9-422"></a><span class="in">  \Vertex{-2, 0}{A}</span></span>
+<span id="cb9-423"><a href="#cb9-423"></a><span class="in">  \Vertex{2, 0}{Y}</span></span>
+<span id="cb9-424"><a href="#cb9-424"></a><span class="in">  \ArrowR{W}{Z}{black}</span></span>
+<span id="cb9-425"><a href="#cb9-425"></a><span class="in">  \Arrow{Z}{M}{black}</span></span>
+<span id="cb9-426"><a href="#cb9-426"></a><span class="in">  \Arrow{W}{A}{black}</span></span>
+<span id="cb9-427"><a href="#cb9-427"></a><span class="in">  \Arrow{A}{M}{black}</span></span>
+<span id="cb9-428"><a href="#cb9-428"></a><span class="in">  \Arrow{M}{Y}{black}</span></span>
+<span id="cb9-429"><a href="#cb9-429"></a><span class="in">  \Arrow{A}{Z}{black}</span></span>
+<span id="cb9-430"><a href="#cb9-430"></a><span class="in">  \Arrow{Z}{Y}{black}</span></span>
+<span id="cb9-431"><a href="#cb9-431"></a><span class="in">  \ArrowL{W}{Y}{black}</span></span>
+<span id="cb9-432"><a href="#cb9-432"></a><span class="in">  \ArrowL{A}{Y}{black}</span></span>
+<span id="cb9-433"><a href="#cb9-433"></a><span class="in">  \ArrowL{W}{M}{black}</span></span>
+<span id="cb9-434"><a href="#cb9-434"></a><span class="in">\end{tikzpicture}</span></span>
+<span id="cb9-435"><a href="#cb9-435"></a><span class="in">```</span></span>
+<span id="cb9-436"><a href="#cb9-436"></a></span>
+<span id="cb9-437"><a href="#cb9-437"></a>Recall that the interventional (in)direct effects are defined via the decomposition:</span>
+<span id="cb9-438"><a href="#cb9-438"></a></span>
+<span id="cb9-439"><a href="#cb9-439"></a>$$</span>
+<span id="cb9-440"><a href="#cb9-440"></a>  \E<span class="co">[</span><span class="ot">Y_{1,G_1} - Y_{0,G_0}</span><span class="co">]</span> =</span>
+<span id="cb9-441"><a href="#cb9-441"></a>    \underbrace{\E[Y_{\color{red}{1},\color{blue}{G_1}} -</span>
+<span id="cb9-442"><a href="#cb9-442"></a>    Y_{\color{red}{1},\color{blue}{G_0}}]}_{\text{interventional indirect effect}} +</span>
+<span id="cb9-443"><a href="#cb9-443"></a>    \underbrace{\E[Y_{\color{blue}{1},\color{red}{G_0}} -</span>
+<span id="cb9-444"><a href="#cb9-444"></a>    Y_{\color{blue}{0},\color{red}{G_0}}]}_{\text{interventional direct effect}}</span>
+<span id="cb9-445"><a href="#cb9-445"></a>$$</span>
+<span id="cb9-446"><a href="#cb9-446"></a></span>
+<span id="cb9-447"><a href="#cb9-447"></a><span class="ss">- </span>In our data example, we'll consider the eating of snacks as a potential</span>
+<span id="cb9-448"><a href="#cb9-448"></a>  intermediate confounder, since one might reasonably hypothesize that</span>
+<span id="cb9-449"><a href="#cb9-449"></a>  participation on a sports team might subsequently affect snacking, which then</span>
+<span id="cb9-450"><a href="#cb9-450"></a>  could affect mediators like the amount of exercises and overweight status.\</span>
+<span id="cb9-451"><a href="#cb9-451"></a><span class="ss">- </span>We can easily estimate the interventional direct and indirect effects by</span>
+<span id="cb9-452"><a href="#cb9-452"></a>  setting <span class="in">`effect = "RI"`</span> and specifying the intermediate confounders in the</span>
+<span id="cb9-453"><a href="#cb9-453"></a>  <span class="in">`moc`</span> argument.</span>
+<span id="cb9-454"><a href="#cb9-454"></a></span>
+<span id="cb9-457"><a href="#cb9-457"></a><span class="in">```{r}</span></span>
+<span id="cb9-458"><a href="#cb9-458"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb9-459"><a href="#cb9-459"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-460"><a href="#cb9-460"></a><span class="co"># compute one-step estimates of the interventional effects</span></span>
+<span id="cb9-461"><a href="#cb9-461"></a><span class="fu">crumble</span>(</span>
+<span id="cb9-462"><a href="#cb9-462"></a>  <span class="at">data =</span> weight_behavior,</span>
+<span id="cb9-463"><a href="#cb9-463"></a>  <span class="at">trt =</span> <span class="st">"sports_2"</span>,</span>
+<span id="cb9-464"><a href="#cb9-464"></a>  <span class="at">outcome =</span> <span class="st">"bmi"</span>,</span>
+<span id="cb9-465"><a href="#cb9-465"></a>  <span class="at">covar =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"sex_F"</span>, <span class="st">"tvhours"</span>),</span>
+<span id="cb9-466"><a href="#cb9-466"></a>  <span class="at">mediators =</span> <span class="st">"exercises"</span>,</span>
+<span id="cb9-467"><a href="#cb9-467"></a>  <span class="at">moc =</span> <span class="st">"snack_2"</span>,</span>
+<span id="cb9-468"><a href="#cb9-468"></a>  <span class="at">d0 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb9-469"><a href="#cb9-469"></a>  <span class="at">d1 =</span> <span class="cf">function</span>(data, trt) <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">nrow</span>(data)),</span>
+<span id="cb9-470"><a href="#cb9-470"></a>  <span class="at">effect =</span> <span class="st">"RI"</span>,</span>
+<span id="cb9-471"><a href="#cb9-471"></a>  <span class="at">learners =</span> ensemble,</span>
+<span id="cb9-472"><a href="#cb9-472"></a>  <span class="at">nn_module =</span> mlp,</span>
+<span id="cb9-473"><a href="#cb9-473"></a>  <span class="at">control =</span> <span class="fu">crumble_control</span>(<span class="at">crossfit_folds =</span> <span class="dv">1</span>L, <span class="at">epochs =</span> <span class="dv">10</span>L, <span class="at">learning_rate =</span> <span class="fl">0.01</span>)</span>
+<span id="cb9-474"><a href="#cb9-474"></a>)</span>
+<span id="cb9-475"><a href="#cb9-475"></a><span class="co"># ✔ Permuting Z-prime variables... 1/1 tasks [1.3s]</span></span>
+<span id="cb9-476"><a href="#cb9-476"></a><span class="co"># ✔ Fitting outcome regressions... 1/1 folds [7.1s]</span></span>
+<span id="cb9-477"><a href="#cb9-477"></a><span class="co"># ✔ Computing alpha r density ratios... 1/1 folds [13.3s]</span></span>
+<span id="cb9-478"><a href="#cb9-478"></a><span class="co">#</span></span>
+<span id="cb9-479"><a href="#cb9-479"></a><span class="co"># ══ Results `crumble()` ════════════════════════════════════════════════════════════════</span></span>
+<span id="cb9-480"><a href="#cb9-480"></a><span class="co">#</span></span>
+<span id="cb9-481"><a href="#cb9-481"></a><span class="co"># ── Randomized Direct Effect</span></span>
+<span id="cb9-482"><a href="#cb9-482"></a><span class="co">#       Estimate: -1.12</span></span>
+<span id="cb9-483"><a href="#cb9-483"></a><span class="co">#     Std. error: 0.43</span></span>
+<span id="cb9-484"><a href="#cb9-484"></a><span class="co"># 95% Conf. int.: -1.97, -0.27</span></span>
+<span id="cb9-485"><a href="#cb9-485"></a><span class="co">#</span></span>
+<span id="cb9-486"><a href="#cb9-486"></a><span class="co"># ── Randomized Indirect Effect</span></span>
+<span id="cb9-487"><a href="#cb9-487"></a><span class="co">#       Estimate: 0</span></span>
+<span id="cb9-488"><a href="#cb9-488"></a><span class="co">#     Std. error: 0.03</span></span>
+<span id="cb9-489"><a href="#cb9-489"></a><span class="co"># 95% Conf. int.: -0.05, 0.05</span></span>
+<span id="cb9-490"><a href="#cb9-490"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nhejazi/causal_mediation_workshops/edit/master/chapters/estimation_walkthrough.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nhejazi/causal_mediation_workshops/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
