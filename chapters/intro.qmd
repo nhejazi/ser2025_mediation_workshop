@@ -24,9 +24,9 @@ library(here)
 
     -   To what extent does the effect of having a disability or chronic pain condition at the time of Medicaid enrollment on subsequent OUD risk operate through pain management strategies? Considered as a bundle? And one-by-one? [@rudolph2025mediation]
 
-![](../img/topdag.pdf){height="100%"}
+![](../img/topdag.pdf){width="80%"}
 
-![](../img/bottomdag.pdf){height="100%"}
+![](../img/bottomdag.pdf){width="80%"}
 
 ## What is causal mediation analysis?
 
