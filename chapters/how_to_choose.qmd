@@ -10,7 +10,7 @@ library(here)
 
 ## 1. Extent to which the risk of OUD conferred by chronic pain operates through pain management treatments
 
-![](../img/topdag.pdf){height="100%"}
+![](../img/topdag.pdf){width="80%"}
 
 This application was explored in detail by @rudolph2025mediation
 
@@ -34,12 +34,12 @@ $\rightarrow$ So, could estimate natural (in)direct effects
     -   Direct effect: $\E(Y_{1,M_0} - Y_{0,M_0})$
     -   Indirect effect: $\E(Y_{1,M_1} - Y_{1,M_0})$
 
-![](../img/all_mediators_icd.pdf){height="100%"}
+![](../img/all_mediators_icd.pdf){width="40%"}
 
 
 ## 2. Extent to which the risk of OUD conferred by chronic pain operates through individual pain management treatments
 
-![](../img/bottomdag.pdf){height="100%"}
+![](../img/bottomdag.pdf){width="80%"}
 
 
 This application was explored in detail by @rudolph2025mediation
