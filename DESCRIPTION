@@ -1,0 +1,74 @@
+Package: mcmaWrkshpTmpl
+Type: Website
+Title: Modern Causal Mediation Analysis Workshop Template
+Version: 1.0.0
+Authors@R: c(
+    person("Nima", "Hejazi", email = "nh@nimahejazi.org",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-7127-2789")),
+    person("Iván", "Díaz", email = "ild2005@med.cornell.edu",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-9056-2047")),
+    person("Kara", "Rudolph", email = "kr2854@cumc.columbia.edu",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-9417-7960"))
+  )
+Maintainer: Nima Hejazi <nh@nimahejazi.org>
+Depends:
+  R (>= 4.2.0),
+Imports:
+  data.table,
+  dplyr,
+  ggplot2,
+  downlit,
+  rmarkdown,
+  quarto,
+  mvtnorm,
+  magick,
+  pdftools,
+  svglite,
+  qpdf,
+  repr,
+  xml2,
+  bbotk,
+  checkmate,
+  sessioninfo,
+  skimr,
+  origami,
+  speedglm,
+  gam,
+  mgcv,
+  earth,
+  glmnet,
+  hal9001,
+  ranger,
+  sl3,
+  medshift,
+  medoutcon,
+  mlr3superlearner,
+  lmtp,
+  lcmmtp,
+  crumble,
+  mma
+Suggests:
+  nnls,
+  Rsolnp,
+  nloptr,
+  torch,
+  SuperLearner
+Remotes:
+  tlverse/sl3,
+  nhejazi/medshift,
+  nhejazi/medoutcon,
+  mlr-org/mlr3extralearners@*release,
+  nt-williams/mlr3superlearner@devel,
+  nt-williams/lcmmtp@overhaul,
+  xoopR/param6,
+  xoopR/set6,
+  ropensci/aorsf
+URL:
+  https://github.com/nhejazi/causal_mediation_workshops,
+  https://codex.nimahejazi.org/causal_mediation_workshops
+BugReports: https://github.com/nhejazi/causal_mediation_workshops/issues
+Encoding: UTF-8
+RoxygenNote: 7.1.1
