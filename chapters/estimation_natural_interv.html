@@ -1663,7 +1663,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>The mediation parameters that we consider can be seen as a function of the joint probability distribution of observed data <span class="math inline">\(O=(W,A,Z,M,Y)\)</span>
 </li>
 <li>For example, under identifiability assumptions the natural direct effect is equal to <span class="math display">\[
-  \psi(\P) = \E[\color{Goldenrod}{\E\{\color{ForestGreen}
+  \psi(\P) = \E[\color{red}{\E\{\color{ForestGreen}
     {\E(Y \mid A=1, M, W) - \E(Y \mid A=0, M, W)} \mid A=0, W \}}]
 \]</span>
 </li>
@@ -1679,9 +1679,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>Computing the probability <span class="math inline">\(\P(M=m\mid A=0,W=w)\)</span> for all values <span class="math inline">\((m,w)\)</span>
 </li>
 <li>Compute <span class="math display">\[\begin{align*}
-  \color{Goldenrod}{\E\{}&amp;\color{ForestGreen}{\E(Y \mid A=1, M, W) -
-    \E(Y \mid A=0, M, W)}\color{Goldenrod}{\mid A=0,W\}} =\\
-  &amp;\color{Goldenrod}{\sum_m\color{ForestGreen}{\{\E(Y \mid A=1, m, w) -
+  \color{red}{\E\{}&amp;\color{ForestGreen}{\E(Y \mid A=1, M, W) -
+    \E(Y \mid A=0, M, W)}\color{red}{\mid A=0,W\}} =\\
+  &amp;\color{red}{\sum_m\color{ForestGreen}{\{\E(Y \mid A=1, m, w) -
     \E(Y \mid A=0, m, w)\}} \P(M=m\mid A=0, W=w)}
 \end{align*}\]</span>
 </li>
@@ -1710,7 +1710,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>Estimate <span class="math inline">\(\P(W=w)\)</span> with the empirical distribution</li>
 <li>Evaluate <span class="math display">\[
   \psi(\hat\P) = \hat{\E}[\color{RoyalBlue}{
-    \hat{\E}\{\color{Goldenrod}{\hat\E(Y \mid A=1, M, W) -
+    \hat{\E}\{\color{red}{\hat\E(Y \mid A=1, M, W) -
     \hat{\E}(Y \mid A=0, M, W)}\mid A=0,W\}}]
 \]</span>
 </li>
@@ -1725,7 +1725,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>An alternative expression of the parameter functional (for the NDE) is given by <span class="math display">\[
   \E \bigg[\color{RoyalBlue}{\bigg\{ \frac{\I(A=1)}{\P(A=1\mid W)}
   \frac{\P(M\mid A=0,W)}{\P(M\mid A=1,W)} -
-  \frac{\I(A=0)}{\P(A=0\mid W)}\bigg\}} \times \color{Goldenrod}{Y}\bigg]
+  \frac{\I(A=0)}{\P(A=0\mid W)}\bigg\}} \times \color{red}{Y}\bigg]
 \]</span>
 </li>
 <li>Thus, you can also construct a weighted estimator as <span class="math display">\[
@@ -1733,7 +1733,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   \frac{\I(A_i=1)}{\hat{\P}(A_i=1\mid W_i)}
   \frac{\hat{\P}(M_i\mid A_i=0,W_i)}{\hat{\P}(M_i\mid A_i=1, W_i)} -
   \frac{\I(A_i=0)}{\hat{\P}(A_i=0\mid W_i)}\bigg\}} \times
-  \color{Goldenrod}{Y_i} \bigg]
+  \color{red}{Y_i} \bigg]
 \]</span>
 </li>
 </ul></section><section id="second-weighted-estimator" class="level4" data-number="5.4.2.2"><h4 data-number="5.4.2.2" class="anchored" data-anchor-id="second-weighted-estimator">
@@ -1741,13 +1741,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <ul>
 <li><p>The parameter functional for the NDE can also be expressed as a combination of regression and weighting: <span class="math display">\[
   \E\bigg[\color{RoyalBlue}{\frac{\I(A=0)}{\P(A=0\mid W)}}
-  \times \color{Goldenrod}{\E(Y \mid A=1, M, W) -
+  \times \color{red}{\E(Y \mid A=1, M, W) -
   \E(Y \mid A=0, M, W)}\bigg]
 \]</span></p></li>
 <li><p>Thus, you can also construct a weighted estimator as <span class="math display">\[
   \frac{1}{n} \sum_{i=1}^n \bigg[\color{RoyalBlue}{
   \frac{\I(A_i=0)}{\hat{\P}(A_i=0\mid W_i)}} \times
-  \color{Goldenrod}{\hat{\E}(Y \mid A=1, M_i, W_i) -
+  \color{red}{\hat{\E}(Y \mid A=1, M_i, W_i) -
   \hat{\E}(Y \mid A=0, M_i, W_i)}\bigg]
 \]</span></p></li>
 </ul></section></section><section id="implementation-of-g-computation-and-ipw-estimators-in-practice" class="level3" data-number="5.4.3"><h3 data-number="5.4.3" class="anchored" data-anchor-id="implementation-of-g-computation-and-ipw-estimators-in-practice">
@@ -1876,11 +1876,11 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
       \frac{\I(A_i=1)}{\hat{\P}(A_i=1 \mid W_i)}
       \frac{\hat{\P}(M_i \mid A_i=0,W)_i}{\hat{\P}(M_i \mid A_i=1,W_i)} -
       \frac{\I(A=0)}{\hat{\P}(A_i=0 \mid W_i)}\bigg\}}
-      \color{Goldenrod}{[Y_i - \hat{\E}(Y\mid A_i,M_i,W_i)]} \\
+      \color{red}{[Y_i - \hat{\E}(Y\mid A_i,M_i,W_i)]} \\
     &amp;+ \frac{1}{n} \sum_{i=1}^n \color{RoyalBlue}{\frac{\I(A=0)}{\P(A=0 \mid
-      W)}} \color{Goldenrod}{\big\{ \hat{Q}(M_i,W_i) -
+      W)}} \color{red}{\big\{ \hat{Q}(M_i,W_i) -
       \hat{\E}[\hat{Q}(M_i,W_i) \mid W_i, A_i = 0] \big\}} \\
-    &amp;+ \frac{1}{n} \sum_{i=1}^n \color{Goldenrod}{
+    &amp;+ \frac{1}{n} \sum_{i=1}^n \color{red}{
       \hat{\E}[\hat{Q}(M_i,W_i) \mid W_i,A_i=0]}
 \end{align*}\]</span></p>
 <ul>
@@ -1909,10 +1909,10 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <li>The quantity being averaged can be re-expressed as follows <span class="math display">\[\begin{align*}     
 &amp; \color{RoyalBlue}{\bigg\{ \frac{\I(A=1)}{g(0\mid W)}
 \frac{e(0\mid M,W)}{e(1\mid M,W)} - \frac{\I(A=0)}{g(0\mid W)}\bigg\}}
-\times \color{Goldenrod}{[Y - b(A,M,W)]} \\
+\times \color{red}{[Y - b(A,M,W)]} \\
 &amp;+ \color{RoyalBlue}{\frac{\I(A=0)}{g(0\mid W)}}
-\color{Goldenrod}{\big\{Q(M,W) - \E[Q(M,W) \mid W, A=0] \big\}} \\
-&amp;+ \color{Goldenrod}{\E[Q(M,W) \mid W, A=0]}
+\color{red}{\big\{Q(M,W) - \E[Q(M,W) \mid W, A=0] \big\}} \\
+&amp;+ \color{red}{\E[Q(M,W) \mid W, A=0]}
 \end{align*}\]</span>
 </li>
 </ul>
@@ -2621,7 +2621,7 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-139"><a href="#cb1-139"></a><span class="ss">- </span>For example, under identifiability assumptions the natural direct effect is</span>
 <span id="cb1-140"><a href="#cb1-140"></a>  equal to</span>
 <span id="cb1-141"><a href="#cb1-141"></a>  $$</span>
-<span id="cb1-142"><a href="#cb1-142"></a>    \psi(\P) = \E[\color{Goldenrod}{\E<span class="sc">\{</span>\color{ForestGreen}</span>
+<span id="cb1-142"><a href="#cb1-142"></a>    \psi(\P) = \E[\color{red}{\E<span class="sc">\{</span>\color{ForestGreen}</span>
 <span id="cb1-143"><a href="#cb1-143"></a>      {\E(Y \mid A=1, M, W) - \E(Y \mid A=0, M, W)} \mid A=0, W <span class="sc">\}</span>}]</span>
 <span id="cb1-144"><a href="#cb1-144"></a>  $$</span>
 <span id="cb1-145"><a href="#cb1-145"></a><span class="ss">- </span>The notation $\psi(\P)$ means that the parameter is a function of $\P$ -- in</span>
@@ -2636,9 +2636,9 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-154"><a href="#cb1-154"></a><span class="ss">  - </span>Computing the probability $\P(M=m\mid A=0,W=w)$ for all values $(m,w)$</span>
 <span id="cb1-155"><a href="#cb1-155"></a><span class="ss">  - </span>Compute</span>
 <span id="cb1-156"><a href="#cb1-156"></a>    \begin{align*}</span>
-<span id="cb1-157"><a href="#cb1-157"></a>      \color{Goldenrod}{\E<span class="sc">\{</span>}&amp;\color{ForestGreen}{\E(Y \mid A=1, M, W) -</span>
-<span id="cb1-158"><a href="#cb1-158"></a>        \E(Y \mid A=0, M, W)}\color{Goldenrod}{\mid A=0,W<span class="sc">\}</span>} =<span class="sc">\\</span></span>
-<span id="cb1-159"><a href="#cb1-159"></a>      &amp;\color{Goldenrod}{\sum_m\color{ForestGreen}{<span class="sc">\{</span>\E(Y \mid A=1, m, w) -</span>
+<span id="cb1-157"><a href="#cb1-157"></a>      \color{red}{\E<span class="sc">\{</span>}&amp;\color{ForestGreen}{\E(Y \mid A=1, M, W) -</span>
+<span id="cb1-158"><a href="#cb1-158"></a>        \E(Y \mid A=0, M, W)}\color{red}{\mid A=0,W<span class="sc">\}</span>} =<span class="sc">\\</span></span>
+<span id="cb1-159"><a href="#cb1-159"></a>      &amp;\color{red}{\sum_m\color{ForestGreen}{<span class="sc">\{</span>\E(Y \mid A=1, m, w) -</span>
 <span id="cb1-160"><a href="#cb1-160"></a>        \E(Y \mid A=0, m, w)<span class="sc">\}</span>} \P(M=m\mid A=0, W=w)}</span>
 <span id="cb1-161"><a href="#cb1-161"></a>    \end{align*}</span>
 <span id="cb1-162"><a href="#cb1-162"></a><span class="ss">  - </span>Computing the probability $\P(W=w)$ for all values $w$</span>
@@ -2663,7 +2663,7 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-181"><a href="#cb1-181"></a><span class="ss">  - </span>Evaluate</span>
 <span id="cb1-182"><a href="#cb1-182"></a>    $$</span>
 <span id="cb1-183"><a href="#cb1-183"></a>      \psi(\hat\P) = \hat{\E}[\color{RoyalBlue}{</span>
-<span id="cb1-184"><a href="#cb1-184"></a>        \hat{\E}<span class="sc">\{</span>\color{Goldenrod}{\hat\E(Y \mid A=1, M, W) -</span>
+<span id="cb1-184"><a href="#cb1-184"></a>        \hat{\E}<span class="sc">\{</span>\color{red}{\hat\E(Y \mid A=1, M, W) -</span>
 <span id="cb1-185"><a href="#cb1-185"></a>        \hat{\E}(Y \mid A=0, M, W)}\mid A=0,W<span class="sc">\}</span>}]</span>
 <span id="cb1-186"><a href="#cb1-186"></a>    $$</span>
 <span id="cb1-187"><a href="#cb1-187"></a><span class="ss">- </span>This is known as the G-computation estimator.</span>
@@ -2677,7 +2677,7 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-195"><a href="#cb1-195"></a>  $$</span>
 <span id="cb1-196"><a href="#cb1-196"></a>    \E \bigg[\color{RoyalBlue}{\bigg<span class="sc">\{</span> \frac{\I(A=1)}{\P(A=1\mid W)}</span>
 <span id="cb1-197"><a href="#cb1-197"></a>    \frac{\P(M\mid A=0,W)}{\P(M\mid A=1,W)} -</span>
-<span id="cb1-198"><a href="#cb1-198"></a>    \frac{\I(A=0)}{\P(A=0\mid W)}\bigg<span class="sc">\}</span>} \times \color{Goldenrod}{Y}\bigg]</span>
+<span id="cb1-198"><a href="#cb1-198"></a>    \frac{\I(A=0)}{\P(A=0\mid W)}\bigg<span class="sc">\}</span>} \times \color{red}{Y}\bigg]</span>
 <span id="cb1-199"><a href="#cb1-199"></a>  $$</span>
 <span id="cb1-200"><a href="#cb1-200"></a><span class="ss">- </span>Thus, you can also construct a weighted estimator as</span>
 <span id="cb1-201"><a href="#cb1-201"></a>  $$</span>
@@ -2685,7 +2685,7 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-203"><a href="#cb1-203"></a>    \frac{\I(A_i=1)}{\hat{\P}(A_i=1\mid W_i)}</span>
 <span id="cb1-204"><a href="#cb1-204"></a>    \frac{\hat{\P}(M_i\mid A_i=0,W_i)}{\hat{\P}(M_i\mid A_i=1, W_i)} -</span>
 <span id="cb1-205"><a href="#cb1-205"></a>    \frac{\I(A_i=0)}{\hat{\P}(A_i=0\mid W_i)}\bigg<span class="sc">\}</span>} \times</span>
-<span id="cb1-206"><a href="#cb1-206"></a>    \color{Goldenrod}{Y_i} \bigg]</span>
+<span id="cb1-206"><a href="#cb1-206"></a>    \color{red}{Y_i} \bigg]</span>
 <span id="cb1-207"><a href="#cb1-207"></a>  $$</span>
 <span id="cb1-208"><a href="#cb1-208"></a></span>
 <span id="cb1-209"><a href="#cb1-209"></a><span class="fu">#### Second weighted estimator</span></span>
@@ -2694,7 +2694,7 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-212"><a href="#cb1-212"></a>  regression and weighting:</span>
 <span id="cb1-213"><a href="#cb1-213"></a>  $$</span>
 <span id="cb1-214"><a href="#cb1-214"></a>    \E\bigg[\color{RoyalBlue}{\frac{\I(A=0)}{\P(A=0\mid W)}}</span>
-<span id="cb1-215"><a href="#cb1-215"></a>    \times \color{Goldenrod}{\E(Y \mid A=1, M, W) -</span>
+<span id="cb1-215"><a href="#cb1-215"></a>    \times \color{red}{\E(Y \mid A=1, M, W) -</span>
 <span id="cb1-216"><a href="#cb1-216"></a>    \E(Y \mid A=0, M, W)}\bigg]</span>
 <span id="cb1-217"><a href="#cb1-217"></a>  $$</span>
 <span id="cb1-218"><a href="#cb1-218"></a></span>
@@ -2702,7 +2702,7 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-220"><a href="#cb1-220"></a>  $$</span>
 <span id="cb1-221"><a href="#cb1-221"></a>    \frac{1}{n} \sum_{i=1}^n \bigg[\color{RoyalBlue}{</span>
 <span id="cb1-222"><a href="#cb1-222"></a>    \frac{\I(A_i=0)}{\hat{\P}(A_i=0\mid W_i)}} \times</span>
-<span id="cb1-223"><a href="#cb1-223"></a>    \color{Goldenrod}{\hat{\E}(Y \mid A=1, M_i, W_i) -</span>
+<span id="cb1-223"><a href="#cb1-223"></a>    \color{red}{\hat{\E}(Y \mid A=1, M_i, W_i) -</span>
 <span id="cb1-224"><a href="#cb1-224"></a>    \hat{\E}(Y \mid A=0, M_i, W_i)}\bigg]</span>
 <span id="cb1-225"><a href="#cb1-225"></a>  $$</span>
 <span id="cb1-226"><a href="#cb1-226"></a></span>
@@ -2883,11 +2883,11 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-401"><a href="#cb1-401"></a>      \frac{\I(A_i=1)}{\hat{\P}(A_i=1 \mid W_i)}</span>
 <span id="cb1-402"><a href="#cb1-402"></a>      \frac{\hat{\P}(M_i \mid A_i=0,W)_i}{\hat{\P}(M_i \mid A_i=1,W_i)} -</span>
 <span id="cb1-403"><a href="#cb1-403"></a>      \frac{\I(A=0)}{\hat{\P}(A_i=0 \mid W_i)}\bigg<span class="sc">\}</span>}</span>
-<span id="cb1-404"><a href="#cb1-404"></a>      \color{Goldenrod}{<span class="co">[</span><span class="ot">Y_i - \hat{\E}(Y\mid A_i,M_i,W_i)</span><span class="co">]</span>} <span class="sc">\\</span></span>
+<span id="cb1-404"><a href="#cb1-404"></a>      \color{red}{<span class="co">[</span><span class="ot">Y_i - \hat{\E}(Y\mid A_i,M_i,W_i)</span><span class="co">]</span>} <span class="sc">\\</span></span>
 <span id="cb1-405"><a href="#cb1-405"></a>    &amp;+ \frac{1}{n} \sum_{i=1}^n \color{RoyalBlue}{\frac{\I(A=0)}{\P(A=0 \mid</span>
-<span id="cb1-406"><a href="#cb1-406"></a>      W)}} \color{Goldenrod}{\big<span class="sc">\{</span> \hat{Q}(M_i,W_i) -</span>
+<span id="cb1-406"><a href="#cb1-406"></a>      W)}} \color{red}{\big<span class="sc">\{</span> \hat{Q}(M_i,W_i) -</span>
 <span id="cb1-407"><a href="#cb1-407"></a>      \hat{\E}<span class="co">[</span><span class="ot">\hat{Q}(M_i,W_i) \mid W_i, A_i = 0</span><span class="co">]</span> \big<span class="sc">\}</span>} <span class="sc">\\</span></span>
-<span id="cb1-408"><a href="#cb1-408"></a>    &amp;+ \frac{1}{n} \sum_{i=1}^n \color{Goldenrod}{</span>
+<span id="cb1-408"><a href="#cb1-408"></a>    &amp;+ \frac{1}{n} \sum_{i=1}^n \color{red}{</span>
 <span id="cb1-409"><a href="#cb1-409"></a>      \hat{\E}<span class="co">[</span><span class="ot">\hat{Q}(M_i,W_i) \mid W_i,A_i=0</span><span class="co">]</span>}</span>
 <span id="cb1-410"><a href="#cb1-410"></a>\end{align*}</span>
 <span id="cb1-411"><a href="#cb1-411"></a></span>
@@ -2916,10 +2916,10 @@ van der Laan, Mark J, Eric C Polley, and Alan E Hubbard. 2007. <span>“<span>Su
 <span id="cb1-434"><a href="#cb1-434"></a>    \begin{align*}     </span>
 <span id="cb1-435"><a href="#cb1-435"></a>    &amp; \color{RoyalBlue}{\bigg<span class="sc">\{</span> \frac{\I(A=1)}{g(0\mid W)}</span>
 <span id="cb1-436"><a href="#cb1-436"></a>      \frac{e(0\mid M,W)}{e(1\mid M,W)} - \frac{\I(A=0)}{g(0\mid W)}\bigg<span class="sc">\}</span>}</span>
-<span id="cb1-437"><a href="#cb1-437"></a>      \times \color{Goldenrod}{<span class="co">[</span><span class="ot">Y - b(A,M,W)</span><span class="co">]</span>} <span class="sc">\\</span></span>
+<span id="cb1-437"><a href="#cb1-437"></a>      \times \color{red}{<span class="co">[</span><span class="ot">Y - b(A,M,W)</span><span class="co">]</span>} <span class="sc">\\</span></span>
 <span id="cb1-438"><a href="#cb1-438"></a>    &amp;+ \color{RoyalBlue}{\frac{\I(A=0)}{g(0\mid W)}}</span>
-<span id="cb1-439"><a href="#cb1-439"></a>      \color{Goldenrod}{\big<span class="sc">\{</span>Q(M,W) - \E<span class="co">[</span><span class="ot">Q(M,W) \mid W, A=0</span><span class="co">]</span> \big<span class="sc">\}</span>} <span class="sc">\\</span></span>
-<span id="cb1-440"><a href="#cb1-440"></a>    &amp;+ \color{Goldenrod}{\E<span class="co">[</span><span class="ot">Q(M,W) \mid W, A=0</span><span class="co">]</span>}</span>
+<span id="cb1-439"><a href="#cb1-439"></a>      \color{red}{\big<span class="sc">\{</span>Q(M,W) - \E<span class="co">[</span><span class="ot">Q(M,W) \mid W, A=0</span><span class="co">]</span> \big<span class="sc">\}</span>} <span class="sc">\\</span></span>
+<span id="cb1-440"><a href="#cb1-440"></a>    &amp;+ \color{red}{\E<span class="co">[</span><span class="ot">Q(M,W) \mid W, A=0</span><span class="co">]</span>}</span>
 <span id="cb1-441"><a href="#cb1-441"></a>    \end{align*}</span>
 <span id="cb1-442"><a href="#cb1-442"></a></span>
 <span id="cb1-443"><a href="#cb1-443"></a><span class="ss">  - </span>Option 2: Use so-called _Riesz learning_ (more on this later)</span>
